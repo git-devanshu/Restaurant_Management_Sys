@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const User = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
     name : String,
     username : {type : String, required : true},
     email : String,
@@ -8,5 +8,7 @@ const User = new mongoose.Schema({
     vfcode : {type : Number, default : 0},
     privilege : {type : String, default : 'user'}
 });
+
+const User = mongoose.model('users', userSchema, 'users');
 
 module.exports = {User};

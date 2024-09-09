@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const {getCurrentDate} = require('../utils/helperFunctions');
 
-const KOT = new mongoose.Schema({
+const KOTSchema = new mongoose.Schema({
     // _id will be used as KOTno
     items : {type : Array, default : [{}]},
     tableNo : String,
@@ -10,6 +10,8 @@ const KOT = new mongoose.Schema({
     billStatus : {type : String, default : 'pending'}, //pending, paid
     totalPrice : Number
 });
+
+const KOT = mongoose.model('KOT', KOTSchema, 'KOT');
 
 module.exports = {KOT};
 

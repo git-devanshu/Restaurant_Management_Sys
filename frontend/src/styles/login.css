@@ -12,6 +12,8 @@
     border-top-left-radius: 40vh;
     border-bottom-left-radius: 40vh;
     height: 100vh;
+    display: grid;
+    place-items: center;
 }
 
 .lg-form{
@@ -20,7 +22,7 @@
     top: calc((100vh - 420px)/2);
     left: 25%;
     border-radius: 10px;
-    box-shadow: 0 3px 5px black;
+    box-shadow: 0 4px 8px black;
     height: 420px;
     width: 350px;
     background-color: white;
@@ -28,5 +30,30 @@
         font-size: 38px;
         text-align: center;
         font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+}
+
+@media (max-width:1120px){
+    .lg-form{
+        left: 12%;
+    }
+}
+
+@media (max-width:768px){
+    .parent-lg{
+        display: flex;
+        flex-direction: column;
+    }
+    .lg-left{
+        display: none;
+    }
+    .lg-right{
+        height: 40vh;
+        border-radius: 0px;
+    }
+    .lg-form{
+        width: 300px;
+        left: calc((100% - 300px)/2);
+        top: calc((125vh - 420px)/2);
     }
 }

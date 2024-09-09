@@ -1,9 +1,11 @@
 const mongoose = require('mongoose');
 
-const KDS = new mongoose.Schema({
+const KDSSchema = new mongoose.Schema({
     tabeleNo : String,
     items : {type : Array, default : [{}]}
 });
+
+const KDS = mongoose.model('KDS', KDSSchema, 'KDS');
 
 module.exports = {KDS};
 

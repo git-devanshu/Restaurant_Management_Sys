@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const Table = new mongoose.Schema({
+const tableSchema = new mongoose.Schema({
     tableNo : {type : String, required : true},
     location : String,
     capacity : Number,
@@ -9,6 +9,8 @@ const Table = new mongoose.Schema({
     bookingTime : String,
     waitlist : {type : Array, default : [{}]}
 });
+
+const Table = mongoose.model('tables', tableSchema, 'tables');
 
 module.exports = {Table};
 
