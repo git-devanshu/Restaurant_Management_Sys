@@ -1,0 +1,32 @@
+.parent-lg{
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+}
+
+.lg-left{
+    height: 100vh;
+}
+
+.lg-right{
+    background-color: #FFF41A;
+    border-top-left-radius: 40vh;
+    border-bottom-left-radius: 40vh;
+    height: 100vh;
+}
+
+.lg-form{
+    z-index: 3;
+    position: absolute;
+    top: calc((100vh - 420px)/2);
+    left: 25%;
+    border-radius: 10px;
+    box-shadow: 0 3px 5px black;
+    height: 420px;
+    width: 350px;
+    background-color: white;
+    h1{
+        font-size: 38px;
+        text-align: center;
+        font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+}

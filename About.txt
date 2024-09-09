@@ -1,0 +1,69 @@
+=== Frontend ===
+
+MODULES : 
+
+1. axios
+2. react-router-dom
+3. react-hot-toast
+
+=== Backend ===
+
+MODULES : 
+
+1. express
+2. mongoose
+3. bcrypt
+4. cors
+5. jsonwebtoken
+6. dotenv
+7. nodemon
+8. nodemailer
+
+=== Database ===
+
+MongoDB Atlas
+DB : restaurant-management-system
+
+Collections :
+1. users
+2. feedback
+
+=== API Endpoints ===
+
+1. for users collections prefix : /users
+/
+/:id
+/signup
+/login
+/forgot-password
+/reset-password
+
+=== HTTP error codes / Rest API error codes ===
+
+200 : ok
+201 : created
+202 : accepted
+203 : non authoritative information
+204 : no content
+
+400 : bad request
+401 : unauthorized
+403 : forbidden
+404 : not found
+409 : conflict
+
+500 : internal server error 
+501 : not implemented
+502 : bad gateway
+503 : service unavailable
+504 : gateway timeout
+599 : network timeout
+
+
+=== References ===
+1. https://www.loginradius.com/blog/engineering/guest-post/jwt-vs-sessions/
+2. https://www.cyberchief.ai/2023/01/how-to-securely-use-json-web-tokens-in.html#:~:text=Our%20jwt%20will%20be%20generated,for%20production%20purposes%2C%20using%20https.&text=const%20token%20%3D%20jwt.,%22YOUR_SECRET%22)%3B%20return%20res%20.
+3. pexels.com
+4. css filter generator
+5. https://www.vecteezy.com/free-photos
+6. https://www.gofrugal.com/restaurant/?utm_source=google&utm_medium=cpc&utm_campaign=restaurant_search_ind&utm_adgroup=restaurant_management&utm_term=online%20restaurant%20management%20system&network=g&device=c&matchtype=e&gad_source=1&gclid=CjwKCAjwzIK1BhAuEiwAHQmU3ip-U12hbxBoPs1NxHkK6lv1ITbS3mWrvVecgrNgquB_r3z6c-TEZBoCgI0QAvD_BwE
