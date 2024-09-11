@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import '../styles/login.css';
-import { Input, Stack, InputGroup, InputLeftElement, useToast, Heading, Link, Button, ButtonGroup, Text, Image } from '@chakra-ui/react'
-import { AtSignIcon, EmailIcon, LockIcon, InfoIcon } from '@chakra-ui/icons';
+import { Input, Stack, InputGroup, InputLeftElement, Heading, Link, Button, Text, Image } from '@chakra-ui/react'
+import { AtSignIcon, LockIcon } from '@chakra-ui/icons';
 import foodiesIcon from '../images/restaurant.png';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
