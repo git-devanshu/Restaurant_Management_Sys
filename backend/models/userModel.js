@@ -1,12 +1,13 @@
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
-    name : String,
+    name : {type : String, required : true},
     username : {type : String, required : true},
-    email : String,
+    email : {type : String, required : true},
     password : String,
-    vfcode : {type : Number, default : 0},
-    privilege : {type : String, default : 'user'}
+    vfcode : {type : String, default : '0'},
+    privilege : {type : String, default : 'user'},
+    bookingId : {type : String, default : ''}
 });
 
 const User = mongoose.model('users', userSchema, 'users');

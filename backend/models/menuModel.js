@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 
 const menuSchema = new mongoose.Schema({
-    itemName : String,
-    price : Number,
-    category : String,
+    itemName : {type : String, required : true},
+    price : {type : Number, required : true},
+    category : {type : String, required : true},
     type : {type : String, default : 'veg'} //veg, non-veg, egg-food
 });
 

@@ -3,12 +3,13 @@ const {getCurrentDate} = require('../utils/helperFunctions');
 
 const KOTSchema = new mongoose.Schema({
     // _id will be used as KOTno
-    items : {type : Array, default : [{}]},
+    items : {type : Array, default : []},
     tableNo : String,
     orderDate : {type : String, default : getCurrentDate(2)},
     orderTime : {type : String, default : getCurrentDate(5)},
     billStatus : {type : String, default : 'pending'}, //pending, paid
-    totalPrice : Number
+    totalPrice : {type : Number, default : 0},
+    custId : String
 });
 
 const KOT = mongoose.model('KOT', KOTSchema, 'KOT');
@@ -21,6 +22,6 @@ object of items will be as
     itemName,
     price,
     qty,
-    status
+    status // pending, preparing, ready
 }
 */

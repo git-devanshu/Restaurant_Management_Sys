@@ -2,12 +2,12 @@ const mongoose = require('mongoose');
 
 const tableSchema = new mongoose.Schema({
     tableNo : {type : String, required : true},
-    location : String,
-    capacity : Number,
+    location : {type : String, required : true},
+    capacity : {type : Number, required : true},
     status : {type : String, default : 'free'}, //status - free, occupied
     currentBooking : {type : Object, default : {}}, //details of customer who have currently booked the table
-    bookingTime : String,
-    waitlist : {type : Array, default : [{}]}
+    bookingTime : {type : String, default : ''},
+    waitlist : {type : Array, default : []}
 });
 
 const Table = mongoose.model('tables', tableSchema, 'tables');

@@ -1,0 +1,138 @@
+const {Table} = require('../../models/tableModel');
+const {User} = require('../../models/userModel');
+const {KOT} = require('../../models/kotModel');
+const {getCurrentDate} = require('../../utils/helperFunctions');
+
+const getBookingRequests = async (req, res) =>{
+    try{
+        const privilege = req.privilege;
+        if(privilege === 'admin'){
+            const data = await Table.find({});
+            res.json({ status : 200, data });
+        }
+        else{
+            res.json({ status : 401, message : 'Error getting reservation requests' });
+        }
+    }
+    catch(error){
+        res.json({ status : 500, message : 'Internal Server Error' });
+    }
+}
+
+const approveRequest = async (req, res) =>{
+    try{
+        const privilege = req.privilege;
+        if(privilege === 'admin'){
+            const {_id, tableNo, custId, name, username, reqTime} = req.body;
+            const reservation = await Table.findByIdAndUpdate({_id},
+                {
+                    $set : {
+                        status : 'occupied',
+                        bookingTime : getCurrentDate(5),
+                        currentBooking : {
+                            custId, name, username, reqTime, reqStatus : 'approved'
+                        }
+                    },
+                    $pull : {
+                        waitlist : {
+                            custId, name, username, reqTime, reqStatus : 'pending'
+                        }
+                    }
+                }
+            );
+            if(reservation){
+                const newKOT = new KOT({
+                    tableNo,
+                    custId
+                });
+                const kot = await newKOT.save();
+                const customer = await User.findByIdAndUpdate({_id : custId}, {bookingId : kot._id});
+                if(customer){
+                    res.json({ status : 200, message : 'Request approved' });
+                }
+                else{
+                    res.json({ status : 404, message : 'Requesting customer not found' });
+                }
+            }
+            else{
+                res.json({ status : 404, message : 'Request not found' });
+            }
+            // notify the customer with custId when his request is approved
+        }
+        else{
+            res.json({ status : 401, message : 'Error approving request' });
+        }
+    }
+    catch(error){
+        res.json({ status : 500, message : 'Internal Server Error' });
+    }
+}
+
+const rejectRequest = async (req, res) =>{
+    try{
+        const privilege = req.privilege;
+        if(privilege === 'admin'){
+            const {_id, custId, name, username, reqTime} = req.body;
+            const reservation = await Table.findByIdAndUpdate({_id}, {
+                $pull : {
+                    waitlist : {
+                        custId, name, username, reqTime, reqStatus : 'pending'
+                    }
+                }
+            });
+            // notify the customer with custId when his request is rejected 
+            if(reservation){
+                res.json({ status : 200, message : 'Request rejected' });
+            }
+            else{
+                res.json({ status : 404, message : "Request not found" });
+            }
+        }
+        else{
+            res.json({ status : 401, message : 'Error' });
+        }
+    }
+    catch(error){
+        res.json({ status : 500, message : 'Internal Server Error' });
+    }
+}
+
+const getCurrentBookings = async (req, res) =>{
+    try{
+        const privilege = req.privilege;
+        if(privilege === 'admin'){
+            const data = await Table.find({ currentBooking : {$ne : {}} });
+            res.json({ status : 200, data });
+        }
+        else{
+            res.json({ status : 401, message : 'Error getting current bookings' });
+        }
+    }
+    catch(error){
+        res.json({ status : 500, message : 'Internal Server Error' });
+    }
+}
+
+const freeTable = async (req, res) =>{
+    try{
+        const privilege = req.privilege;
+        if(privilege === 'admin'){
+            const {_id} = req.body;
+            const table = await Table.findByIdAndUpdate({_id}, {$set : {status : "free", bookingTime : '', currentBooking : {}}});
+            if(table){
+                res.json({ status : 200, message : 'Table vacated successfully' });
+            }
+            else{
+                res.json({ status : 404, message : "Table not found" });
+            }
+        }
+        else{
+            res.json({ status : 401, message : 'Error vacating table' });
+        }
+    }
+    catch(error){
+        res.json({ status : 500, message : 'Internal Server Error' });
+    }
+}
+
+module.exports = {getBookingRequests, getCurrentBookings, approveRequest, rejectRequest, freeTable};

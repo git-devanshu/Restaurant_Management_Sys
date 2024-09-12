@@ -13,7 +13,7 @@ export default function ForgotPassword() {
 
     const [showDiv, setShowDiv] = useState(false);
     const [username, setUsername] = useState('');
-    const [vfcode, setVfcode] = useState();
+    const [vfcode, setVfcode] = useState('');
     const [password, setPassword] = useState('');
 
     const verifyUser = (e) =>{
@@ -134,7 +134,7 @@ export default function ForgotPassword() {
                                     filter={'invert(35%)'}
                                 />
                             </InputLeftElement>
-                            <Input type='tel' placeholder='verification code' variant='filled' name='vfcode' value={vfcode} required maxLength={6} minLength={6} onChange={(e)=>setVfcode(e.target.value)}/>
+                            <Input type='text' placeholder='verification code' variant='filled' name='vfcode' value={vfcode} required maxLength={6} minLength={6} onChange={(e)=>setVfcode(e.target.value)}/>
                         </InputGroup>
                         <InputGroup>
                             <InputLeftElement pointerEvents='none'>

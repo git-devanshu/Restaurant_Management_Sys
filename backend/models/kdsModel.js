@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const KDSSchema = new mongoose.Schema({
     tabeleNo : String,
-    items : {type : Array, default : [{}]}
+    items : {type : Array, default : []}
 });
 
 const KDS = mongoose.model('KDS', KDSSchema, 'KDS');

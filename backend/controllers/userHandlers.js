@@ -60,7 +60,8 @@ const forgotPassword = async (req, res)=>{
         if(user){
             const email = user.email;
             const vfcode = generateVerificationCode(6);
-            await user.updateOne({vfcode : vfcode});
+            user.vfcode = vfcode;
+            await user.save();
             sendVFCodeMail(email, vfcode);
             res.json({status : 200, message : 'Verification code sent your registered email id'});
         }
@@ -80,9 +81,9 @@ const resetPassword = async (req, res)=>{
         const user = await User.findOne({username});
         if(user){
             const savedVfCode = user.vfcode;
-            if(savedVfCode === vfcode){
+            if(savedVfCode == vfcode){
                 const hashedPass = await bcrypt.hash(password, 10);
-                await user.updateOne({password : hashedPass, vfcode : 0});
+                await user.updateOne({password : hashedPass, vfcode : '0'});
                 res.json({status : 202, message : 'Password reset successful'});
             }
             else{
