@@ -1,18 +1,20 @@
 import React, {useState} from 'react'
 import '../styles/login.css';
-import { Input, Stack, InputGroup, InputLeftElement, Heading, Link, Button, Text, Image } from '@chakra-ui/react'
+import { Input, Stack, InputGroup, InputLeftElement, Heading, Link, Button, Text, Image, Select } from '@chakra-ui/react'
 import { AtSignIcon, LockIcon } from '@chakra-ui/icons';
 import foodiesIcon from '../images/restaurant.png';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import {Toaster, toast} from 'react-hot-toast';
+import {checkAuthority} from '../utils/helperFunctions';
 
-export default function Login() {
+export default function StaffLogin() {
     const navigate = useNavigate();
 
     const [user, setUser] = useState({
         username: '',
-        password: ''
+        password: '',
+        role: 'waiter'
     });
 
     const handleChange = (e)=>{
@@ -38,14 +40,22 @@ export default function Login() {
             toast.error("Password should be 8 to 30 characters long");
         }
         else{
-            const toastId = toast.loading('Loggin in...');
-            await axios.post('http://localhost:8000/user/login', user)
+            const toastId = toast.loading(`Loggin in as ${user.role}...`);
+            await axios.post('http://localhost:8000/staff/login', user)
             .then(res => {
                 if(res.data.status === 202){
                     toast.success(res.data.message, {id : toastId});
                     sessionStorage.setItem('token', res.data.token);
                     setTimeout(()=>{
-                        navigate('/home');
+                        if(checkAuthority('admin')){
+                            navigate('/admin-page');
+                        }
+                        else if(checkAuthority('chef')){
+                            navigate('/chef-page');
+                        }
+                        else if(checkAuthority('waiter')){
+                            navigate('/waiter-page');
+                        }
                     }, 2000);
                 }
                 else{
@@ -82,7 +92,7 @@ export default function Login() {
                 </Stack>
             </div>
             <form className='lg-form'>
-                <h1>Login</h1>
+                <h1>Staff Login</h1>
                 <Stack spacing={5} style={{margin:'30px'}}>
                     <InputGroup>
                         <InputLeftElement pointerEvents='none'>
@@ -96,8 +106,13 @@ export default function Login() {
                         </InputLeftElement>
                         <Input type='password' placeholder='password' variant='filled' name='password' value={user.password} required maxLength={30} minLength={8} onChange={handleChange}/>
                     </InputGroup>
+                    <Select placeholder='Select Role' name='role' value={user.role} onChange={handleChange} variant='filled'>
+                        <option value='waiter'>Waiter</option>
+                        <option value='chef'>Chef</option>
+                        <option value='admin'>Admin</option>
+                    </Select>
                     <Text align={'center'}>
-                        <Link color='blue.500' href='/forgot-password'>
+                        <Link color='blue.500' href='/forgot-password/staff'>
                             Forgot Password?
                         </Link>
                     </Text>
@@ -113,12 +128,6 @@ export default function Login() {
                         Login
                     </Button>
                 </Stack>
-                <Text align={'center'}>
-                    New User?{' '}
-                    <Link color='blue.500' href='/signup'>
-                        Signup
-                    </Link>
-                </Text>
             </form>
             <Toaster />
         </div>

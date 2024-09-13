@@ -19,6 +19,10 @@ export default function LandingPage() {
         navigate('/signup');
     }
 
+    const navigateToStaffLogin = () =>{
+        navigate('/login/staff');
+    }
+
     return (
         <div className='parent-lp'>
             {/* Navbar in stack */}
@@ -33,7 +37,7 @@ export default function LandingPage() {
                     />
                 </Center>
                 <Center w='auto' h='40px'>
-                    <Text fontSize='lg' color='white' _hover={{textDecoration:'underline'}} style={{cursor:'pointer'}}>Services</Text>
+                    <Text onClick={navigateToStaffLogin} fontSize='lg' color='white' _hover={{textDecoration:'underline'}} style={{cursor:'pointer'}}>Staff Login</Text>
                 </Center>
                 <Center w='auto' h='40px'>
                     <Text fontSize='lg' color='white' _hover={{textDecoration:'underline'}} style={{cursor:'pointer'}}>FAQs</Text>
