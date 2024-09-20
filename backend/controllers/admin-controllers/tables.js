@@ -41,8 +41,8 @@ const updateTable = async (req, res) =>{
     try{
         const privilege = req.privilege;
         if(privilege === 'admin'){
-            const {_id, tableNo, location, capacity} = req.body;
-            const table = await Table.findByIdAndUpdate(_id, {tableNo, location, capacity});
+            const {id, tableNo, location, capacity} = req.body;
+            const table = await Table.findByIdAndUpdate({_id: id}, {tableNo, location, capacity});
             if(table){
                 res.json({ status : 200, message : 'Table Updated Successfully' });
             }

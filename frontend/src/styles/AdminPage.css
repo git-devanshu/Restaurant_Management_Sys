@@ -1,0 +1,128 @@
+.parent-admin{
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    /* background-color: rgb(213, 213, 213); */
+}
+
+.top-bar-admin{
+    height: 10vh;
+    display: flex;
+    align-items: center;
+    background-color: #00171F;
+    box-shadow: 0px 1px 5px gray;
+}
+
+.admin-res-logo{
+    display: flex;
+    height: 10vh;
+    align-items: center;
+    margin-left: 10px;
+}
+
+.admin-res-img{
+    width: 36px;
+    height: 36px;
+    filter: invert(73%) sepia(12%) saturate(3464%) hue-rotate(162deg) brightness(96%) contrast(87%);
+    margin-right: 5px;
+    margin-left: 10px;
+}
+
+.admin-res-title{
+    font-size: 26px;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+    color: rgb(255, 255, 255);
+}
+
+.admin-logut{
+    display: grid;
+    place-items: center;
+    height: 10vh;
+}
+
+.sidebar-ad{
+    display: flex;
+}
+
+.sidebar-menu{
+    width: 200px;
+    min-width: 200px;
+    background-color: #00171F;
+    height: calc(100vh - 10px);
+    overflow-y: scroll;
+    scrollbar-width: none;
+    margin: 5px;
+    border-radius: 16px;
+}
+
+.sidebar-btn{
+    margin: 5px 10px 5px 10px;
+    height: 40px;
+    width: 180px;
+    display: flex;
+    align-items: center;
+    color: white;
+    cursor: pointer;
+    img{
+        height: 24px;
+        width: 24px;
+        margin-left: 15px;
+        filter: invert(100%) sepia(0%) saturate(7441%) hue-rotate(285deg) brightness(98%) contrast(114%);
+    }
+    p{
+        margin-left: 10px;
+        color: white;
+        font-size: 16px;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    }
+}
+
+.sidebar-btn:hover{
+    background-color: #002d3b;
+    border-radius: 10px;
+}
+
+.sidebar-btn-selected{
+    margin: 5px 10px 5px 10px;
+    height: 40px;
+    width: 180px;
+    display: flex;
+    align-items: center;
+    background-color: #43BEE5;
+    border-radius: 10px;
+    cursor: pointer;
+    img{
+        height: 24px;
+        width: 24px;
+        margin-left: 15px;
+    }
+    p{
+        margin-left: 10px;
+        color: #000000;
+        font-size: 16px;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    }
+}
+
+.sb-profile-div{
+    margin: 10px;
+    border-radius: 10px;
+    background-color: #43BEE5;
+    height: auto;
+    width: auto;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    p{
+        font-size: 16px;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: 600;
+        text-align: left;
+    }
+}
+
+.sidebar-display{
+    width: 100%;
+}

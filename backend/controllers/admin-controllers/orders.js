@@ -65,14 +65,18 @@ const rejectOrder = async (req, res) =>{
     try{
         const privilege = req.privilege;
         if(privilege === 'admin'){
-            const {_id, itemName, price} = req.body;
+            const {id, itemName, price, qty} = req.body;
             const kot = await KOT.findByIdAndUpdate(
-                {_id},
+                {_id  : id},
                 {
                     $pull: {
                         items : {"itemName": itemName, "price": price, "status": "pending"}
+                    },
+                    $inc : {
+                        totalPrice : -1 * price * qty
                     }
-                }
+                },
+                {new : true}
             );
             if(kot){
                 res.json({ status : 200, message : 'Order rejected' });

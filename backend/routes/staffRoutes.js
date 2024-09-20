@@ -5,9 +5,10 @@ const {logoutUser} = require('../controllers/userHandlers');
 const {checkAuthorization} = require('../middlewares/checkAuthorization');
 
 // endpoint prefix : /staff
-userRouter.post('/login', loginStaff);
-userRouter.put('/forgot-password', forgotPasswordStaff);
-userRouter.put('/reset-password', resetPasswordStaff);
-userRouter.post('/logout',checkAuthorization, logoutUser);
+
+staffRouter.post('/login', loginStaff);
+staffRouter.put('/forgot-password', forgotPasswordStaff);
+staffRouter.put('/reset-password', resetPasswordStaff);
+staffRouter.post('/logout',checkAuthorization, logoutUser);
 
 module.exports = {staffRouter};

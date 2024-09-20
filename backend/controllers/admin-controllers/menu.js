@@ -20,9 +20,9 @@ const addMenuItem = async (req, res) =>{
     try{
         const privilege = req.privilege;
         if(privilege === 'admin'){
-            const {itemName, price, category, type} = req.body;
+            const {name, price, category, type} = req.body;
             const item = new Menu({
-                itemName,
+                itemName : name,
                 price,
                 category,
                 type
@@ -43,8 +43,8 @@ const UpdateMenuItem = async (req, res) =>{
     try{
         const privilege = req.privilege;
         if(privilege === 'admin'){
-            const {_id, itemName, price, category, type} = req.body;
-            const item = await Menu.findByIdAndUpdate(_id, {itemName, price, category, type});
+            const {_id, name, price, category, type} = req.body;
+            const item = await Menu.findByIdAndUpdate(_id, {itemName : name, price, category, type});
             if(item){
                 res.json({ status : 200, message : 'Item Updated Successfully' });
             }

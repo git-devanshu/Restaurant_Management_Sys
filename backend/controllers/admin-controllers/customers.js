@@ -20,8 +20,8 @@ const updateCustomer = async (req, res) =>{
     try{
         const privilege = req.privilege;
         if(privilege === 'admin'){
-            const {_id, name, username, email} = req.body;
-            const data = await User.findByIdAndUpdate(_id, {name, username, email});
+            const {id, name, email, username} = req.body;
+            const data = await User.findByIdAndUpdate({_id : id}, {name, username, email});
             if(data){
                 res.json({ status : 200, message : 'Customer updated successfully' });
             }

@@ -79,7 +79,7 @@ export default function Signup() {
                         />
                         <h1 style={{fontSize:'40px', margin:'0', marginLeft:'10px', fontFamily:'serif', color:'red'}}>FOODIES</h1>
                     </Stack>
-                    <Heading size='lg'>Be A Foodie</Heading>
+                    <Heading size='lg' textAlign='left'>Be A Foodie</Heading>
                     <Text fontSize='lg' width='250px'>
                         Register now to avail the online 
                         facilities provided by the 

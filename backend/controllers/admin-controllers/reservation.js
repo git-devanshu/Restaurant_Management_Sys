@@ -23,8 +23,8 @@ const approveRequest = async (req, res) =>{
     try{
         const privilege = req.privilege;
         if(privilege === 'admin'){
-            const {_id, tableNo, custId, name, username, reqTime} = req.body;
-            const reservation = await Table.findByIdAndUpdate({_id},
+            const {id, tableNo, custId, name, username, reqTime} = req.body;
+            const reservation = await Table.findByIdAndUpdate({_id : id},
                 {
                     $set : {
                         status : 'occupied',
@@ -57,7 +57,6 @@ const approveRequest = async (req, res) =>{
             else{
                 res.json({ status : 404, message : 'Request not found' });
             }
-            // notify the customer with custId when his request is approved
         }
         else{
             res.json({ status : 401, message : 'Error approving request' });
@@ -72,15 +71,15 @@ const rejectRequest = async (req, res) =>{
     try{
         const privilege = req.privilege;
         if(privilege === 'admin'){
-            const {_id, custId, name, username, reqTime} = req.body;
-            const reservation = await Table.findByIdAndUpdate({_id}, {
+            const {id, custId, name, username, reqTime} = req.body;
+            const reservation = await Table.findByIdAndUpdate({_id : id}, {
                 $pull : {
                     waitlist : {
                         custId, name, username, reqTime, reqStatus : 'pending'
                     }
                 }
             });
-            // notify the customer with custId when his request is rejected 
+            const user = await User.findByIdAndUpdate({_id : custId}, {$set : {bookingId : '0'}});
             if(reservation){
                 res.json({ status : 200, message : 'Request rejected' });
             }
@@ -117,8 +116,8 @@ const freeTable = async (req, res) =>{
     try{
         const privilege = req.privilege;
         if(privilege === 'admin'){
-            const {_id} = req.body;
-            const table = await Table.findByIdAndUpdate({_id}, {$set : {status : "free", bookingTime : '', currentBooking : {}}});
+            const {id} = req.body;
+            const table = await Table.findByIdAndUpdate({_id : id}, {$set : {status : "free", bookingTime : '', currentBooking : {}}});
             if(table){
                 res.json({ status : 200, message : 'Table vacated successfully' });
             }

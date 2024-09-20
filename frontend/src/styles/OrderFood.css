@@ -1,0 +1,230 @@
+.parent-of{
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.grid-of{
+    display: flex;
+    flex-wrap: wrap;
+    background-color: #ffffff;
+    height: calc(100vh - 60px);
+}
+
+.main-of{
+    flex: 3;
+    background-color: white;
+    border-radius: 14px;
+    margin: 10px 0 10px 10px;
+    overflow: scroll;
+    scrollbar-width: none;
+    border: 1px solid rgb(127, 127, 127);
+    box-shadow: 0 2px 6px gray;
+    h1{
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        font-size: 20px;
+        margin: 0 10px 10px 10px;
+        font-weight: 400;
+    }
+}
+
+.top-menu-of{
+    display: grid;
+    grid-template-columns: repeat(12, 98px);
+    overflow: scroll;
+    scrollbar-width: none;
+}
+
+.menu1-category-of{
+    margin: 10px 5px 10px 5px;
+    border-radius: 10px;
+    background-color: #e6e6e6;
+    cursor: pointer;
+    padding: 10px;
+    img{
+        height: 60px;
+        width: 60px;
+        margin: 0 auto;
+    }
+    h3{
+        font-size: 16px;
+        text-align: center;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: 400;
+        margin: 0;
+    }
+}
+
+.menu1-category-of:hover{
+    box-shadow: 1px 1px 5px black;
+}
+
+.menu1-category-selected{
+    margin: 10px 5px 10px 5px;
+    border-radius: 10px;
+    background-color: #151515;
+    cursor: pointer;
+    box-shadow: 1px 1px 5px black;
+    padding: 10px;
+    img{
+        height: 60px;
+        width: 60px;
+        margin: 0 auto;
+    }
+    h3{
+        font-size: 16px;
+        text-align: center;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: 400;
+        margin: 0;
+        color: white;
+    }
+}
+
+.menu-list-of{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content:center;
+    align-items: flex-start;
+    width: 96%;
+    margin-left: 2%;
+    overflow-y: scroll;
+    scrollbar-width: none;
+    max-height: 58vh;
+}
+
+.menu-item-of{
+    display: flex;
+    border-radius: 8px;
+    border: 1px solid rgb(127, 127, 127);
+    align-items: center;
+    width: max(360px, 45%);
+    height: 40px;
+    margin: 3px;
+    cursor: pointer;
+    h4{
+        flex: 12;
+        margin: 0;
+        margin-left: 5px;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 18px;
+        font-weight: 400;
+    }
+    img{
+        flex: 1;
+        height: 25px;
+        width: 25px;
+        margin-left: 8px;
+    }
+    p{
+        flex: 2;
+        font-size: 18px;
+        font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+        font-weight: 500;
+        margin: 0;
+    }
+}
+
+.menu-item-of:hover{
+    box-shadow: 0 2px 7px rgb(110, 110, 110);
+}
+
+.side-of{
+    flex: 1;
+    background-color: #ffffff;
+    border-radius: 10px;
+    border: 1px solid rgb(127, 127, 127);
+    box-shadow: 0 1px 6px rgb(70, 70, 70);
+    margin: 10px;
+    height: 400px;
+    h3{
+        font-size: 20px;
+        margin: 10px;
+        font-weight: 400;
+        text-align: center;
+        height: 30px;
+        border-bottom: 1px solid rgb(127, 127, 127);
+    }
+}
+
+.orders-list-of{
+    height: 42px;
+    width: max(96%, 200px);
+    margin: 0 auto;
+    margin-bottom: 5px;
+    border-radius: 10px;
+    border: 1px solid rgb(127, 127, 127);
+    h2{
+        font-size: 16px;
+        font-family:Arial, Helvetica, sans-serif;
+        font-weight: 300;
+        margin: 0;
+        text-align: left;
+        margin-left: 10px;
+    }
+    p{
+        font-size: 14px;
+        font-family:Arial, Helvetica, sans-serif;
+        font-weight: 400;
+        margin: 0;
+        margin-top: -3px;
+    }
+}
+
+.orders-of{
+    height: 250px;
+    overflow-y: scroll;
+    scrollbar-width: none;
+}
+
+.decision-div-of{
+    padding: 10px;
+    border-top: 1px solid rgb(127, 127, 127);
+    margin-left: 10px;
+    margin-right: 10px;
+    p{
+        margin: 0;
+        font-size: 16px;
+        font-family:Arial, Helvetica, sans-serif;
+        font-weight: 600;
+        text-align: center;
+    }
+    button{
+        cursor: pointer;
+        height: 35px;
+        width: 120px;
+        background-color: #ff0000;
+        color: white;
+        border-radius: 17px;
+        font-size: 16px;
+        margin: 10px;
+    }
+    button:hover{
+        background-color: #ee0000;
+    }
+}
+
+@media(max-width : 737px){
+    .grid-of{
+        height: calc(100vh - 50px);
+        width: 100%;
+        flex-direction: column;
+        overflow-y: scroll;
+        scrollbar-width: none;
+    }
+    .main-of{
+        width: 100%;
+        margin: 0;
+        /* min-height: 70vh; */
+        /* height: auto; */
+    }
+    .side-of{
+        width: 100%;
+        margin: 0;
+        margin-top: 10px;
+        height: 45vh;
+    }
+    .orders-of{
+        height: 20vh;
+    }
+}

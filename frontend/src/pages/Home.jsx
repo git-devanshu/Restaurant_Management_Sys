@@ -31,7 +31,7 @@ import { EmailIcon } from '@chakra-ui/icons'
 import addressIcon from '../images/location.png';
 import emailIcon from '../images/email.png';
 import contactIcon from '../images/phone.png';
-import {getCurrentDate} from '../utils/helperFunctions';
+import {getCurrentDate, logout} from '../utils/helperFunctions';
 
 export default function Home() {
     const navigate = useNavigate();
@@ -42,6 +42,18 @@ export default function Home() {
 
     const navigateToSignup = () =>{
         navigate('/signup');
+    }
+
+    const navigateToTableBooking = () =>{
+        navigate('/book-table');
+    }
+
+    const navigateToOrderFood = () =>{
+        navigate('/order-food');
+    }
+
+    const navigateToMyOrders = () =>{
+        navigate('/my-orders');
     }
 
     return (
@@ -72,7 +84,7 @@ export default function Home() {
                 </Center>
                 <Spacer/>
                 <Center w='auto' h='40px'>
-                    <Button onClick={navigateToSignup} w='100px' color='white' bg='transparent' border='2px' borderRadius='20px' borderColor='#ff0000' _hover={{bg:'#ff0000'}} variant='outline'>
+                    <Button onClick={()=>logout(navigateToLogin)} w='100px' color='white' bg='transparent' border='2px' borderRadius='20px' borderColor='#ff0000' _hover={{bg:'#ff0000'}} variant='outline'>
                         Logout
                     </Button>
                 </Center>
@@ -87,7 +99,7 @@ export default function Home() {
                         <Text color='white' width='340px' fontSize='lg' style={{fontFamily:'serif'}}>
                             We serve the most delicious meals at best prices. Visit the nearest FOODIES restaurant in your city now.
                         </Text>
-                        <Button onClick={navigateToLogin} w='120px' border='2px' borderColor='#ff0000' color='white' bg='#ff0000' borderRadius='20px' _hover={{bg:'transparent'}} style={{margin:'0'}}>
+                        <Button onClick={navigateToMyOrders} w='120px' border='2px' borderColor='#ff0000' color='white' bg='#ff0000' borderRadius='20px' _hover={{bg:'transparent'}} style={{margin:'0'}}>
                             My Orders
                         </Button>
                     </Stack>
@@ -186,7 +198,7 @@ export default function Home() {
                         <li>Click reserve and until the request is approved</li>
                         <li>Do not try to book another table else the first will be unreserved</li>
                     </ul>
-                    <Button w='140px' border='2px' borderColor='#ff0000' color='white' bg='#ff0000' borderRadius='20px' _hover={{bg:'#ee0000'}} style={{margin:'10px', marginTop:'20px'}}>
+                    <Button onClick={navigateToTableBooking} w='140px' border='2px' borderColor='#ff0000' color='white' bg='#ff0000' borderRadius='20px' _hover={{bg:'#ee0000'}} style={{margin:'10px', marginTop:'20px'}}>
                         Book Table
                     </Button>
                 </div>
@@ -199,7 +211,7 @@ export default function Home() {
                 <div>
                     <Text color='black' size='3xl' as='b' fontSize='40px'>Order Food</Text>
                     <p style={{color:'#222222', fontSize:'22px', width:'230px', textAlign:'left'}}>Browse food categories or check out our full menu</p>
-                    <Button w='140px' border='2px' borderColor='#ff0000' color='white' bg='#ff0000' borderRadius='20px' _hover={{bg:'#ee0000'}} style={{marginTop:'10px'}}>
+                    <Button onClick={navigateToOrderFood} w='140px' border='2px' borderColor='#ff0000' color='white' bg='#ff0000' borderRadius='20px' _hover={{bg:'#ee0000'}} style={{marginTop:'10px'}}>
                         View Menu
                     </Button>
                 </div>

@@ -1,0 +1,72 @@
+.btn-main{
+    width: 100px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px;
+}
+
+.title-btn{
+    font: 300;
+    font-size: 16px;
+}
+
+/* default color */
+.button-img-black{
+    height: 20px;
+    width: 20px;
+}
+
+/* #FF0000 */
+.button-img-red{
+    height: 20px;
+    width: 20px;
+    filter: invert(16%) sepia(98%) saturate(6628%) hue-rotate(4deg) brightness(96%) contrast(124%);
+}
+
+/* #FFFFFF */
+.button-img-white{
+    height: 20px;
+    width: 20px;
+    filter: invert(100%) sepia(0%) saturate(7441%) hue-rotate(285deg) brightness(98%) contrast(114%);
+}
+
+/* #00171F */
+.button-img-dark{
+    height: 20px;
+    width: 20px;
+    filter: invert(7%) sepia(23%) saturate(3337%) hue-rotate(159deg) brightness(100%) contrast(103%);
+}
+
+/* #EFA500 */
+.button-img-orange{
+    height: 20px;
+    width: 20px;
+    filter: invert(78%) sepia(37%) saturate(6529%) hue-rotate(6deg) brightness(101%) contrast(101%);
+}
+
+/* #ffea05 */
+.button-img-yellow{
+    height: 20px;
+    width: 20px;
+    filter: invert(96%) sepia(42%) saturate(7463%) hue-rotate(345deg) brightness(98%) contrast(105%);
+}
+
+/* #43BEE5 */
+.button-img-blue{
+    height: 20px;
+    width: 20px;
+    filter: invert(73%) sepia(12%) saturate(3464%) hue-rotate(162deg) brightness(96%) contrast(87%);
+}
+
+/* #2AFF00 */
+.button-img-green{
+    height: 20px;
+    width: 20px;
+    filter: invert(87%) sepia(10%) saturate(7408%) hue-rotate(51deg) brightness(87%) contrast(142%);
+}
