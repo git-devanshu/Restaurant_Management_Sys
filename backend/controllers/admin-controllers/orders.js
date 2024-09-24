@@ -22,30 +22,15 @@ const approveOrder = async (req, res) =>{
     try{
         const privilege = req.privilege;
         if(privilege === 'admin'){
-            const {_id, itemName, price} = req.body;
-            const kot = await KOT.find({_id});
+            const {id, ind} = req.body;
+            const kot = await KOT.findByIdAndUpdate({_id : id}, {
+                $set: {[`items.${ind}.status`]: 'preparing'}
+            }, {new : true});
             if(kot){
-                const filteredItems = kot.items.filter(item => 
-                    item.itemName === itemName && item.price === price && item.status === 'pending'
-                );
-                if(filteredItems.length === 0){
-                    return res.json({ status : 404, message : 'No such orders pending' });
-                }
-                await KOT.updateOne(
-                    { _id: _id, "items.itemName": itemName, "items.price": price, "items.status": "pending" },
-                    { $set: {"items.$[].status": "preparing"} }
-                );
-                await KDS.findOneAndUpdate(
-                    { tableNo: kot.tableNo },
-                    { $push: {items: {$each: filteredItems}} },
-                    { new: true },
-                    { upsert : true }
-                );
-                await KDS.updateMany(
-                    { tableNo: kot.tableNo, "items.status": "pending" },
-                    { $set: { "items.$[elem].status": "preparing" } },
-                    { arrayFilters: [{ "elem.status": "pending" }] }
-                );
+                const currOrder = kot.items[ind];
+                const kds = await KDS.findOneAndUpdate({tableNo : kot.tableNo, kotId : id}, {
+                    $push : {items : currOrder}
+                }, {upsert : true});
                 res.json({ status : 200, message : 'Order sent to kitchen' });
             }
             else{
@@ -57,6 +42,7 @@ const approveOrder = async (req, res) =>{
         }
     }
     catch(error){
+        console.log(error);
         res.json({ status : 500, message : 'Internal Server Error' });
     }
 }
@@ -65,19 +51,14 @@ const rejectOrder = async (req, res) =>{
     try{
         const privilege = req.privilege;
         if(privilege === 'admin'){
-            const {id, itemName, price, qty} = req.body;
-            const kot = await KOT.findByIdAndUpdate(
-                {_id  : id},
-                {
-                    $pull: {
-                        items : {"itemName": itemName, "price": price, "status": "pending"}
-                    },
-                    $inc : {
-                        totalPrice : -1 * price * qty
-                    }
-                },
-                {new : true}
-            );
+            const {id, ind, price, qty} = req.body;
+            await KOT.findByIdAndUpdate({_id  : id},{
+                $unset : {[`items.${ind}`]: 1},
+                $inc : {totalPrice : -1 * price * qty},
+            });
+            const kot = await KOT.findByIdAndUpdate({_id : id}, {
+                $pull : {items : null}
+            }, {new : true});
             if(kot){
                 res.json({ status : 200, message : 'Order rejected' });
             }
@@ -90,6 +71,7 @@ const rejectOrder = async (req, res) =>{
         }
     }
     catch(error){
+        console.log(error);
         res.json({ status : 500, message : 'Internal Server Error' });
     }
 }
@@ -99,8 +81,8 @@ const markBillPaid = async (req, res) =>{
     try{
         const privilege = req.privilege;
         if(privilege === 'admin'){
-            const {_id} = req.body;
-            const bill = await KOT.findByIdAndUpdate({_id}, {billStatus : 'paid'});
+            const {id} = req.body;
+            const bill = await KOT.findByIdAndUpdate({_id : id}, {billStatus : 'paid'}, {new : true});
             if(bill){
                 await User.findByIdAndUpdate({_id : bill.custId}, {$set : {bookingId : ''}});
                 res.json({ status : 200, message : 'Bill marked as paid' });

@@ -23,7 +23,7 @@ const addChef = async (req, res) =>{
     try{
         const privilege = req.privilege;
         if(privilege === 'admin'){
-            const {username, name, age, email, password, salary, speciality} = req.body;
+            const {username, name, age, email, password, speciality} = req.body;
             const user = await Chef.findOne({username});
             if(!user){
                 const hashedPass = await bcrypt.hash(password, 10);
@@ -33,7 +33,6 @@ const addChef = async (req, res) =>{
                     age,
                     email,
                     password : hashedPass,
-                    salary,
                     speciality
                 });
                 await chef.save();

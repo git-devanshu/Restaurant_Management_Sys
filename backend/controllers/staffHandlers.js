@@ -3,7 +3,7 @@ const {Waiter} = require('../models/waiterModel');
 const {Chef} = require('../models/chefModel');
 const bcrypt = require('bcryptjs');
 const {sendVFCodeMail} = require('../utils/sendMail');
-const {generateVerificationCode} = require('../utils/helperFunctions');
+const {generateVerificationCode, addToLogs} = require('../utils/helperFunctions');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
@@ -19,6 +19,7 @@ const loginStaff = async (req, res)=>{
                 }
                 else{
                     const token = jwt.sign({id : admin._id, username : admin.username, name: admin.name, privilege : admin.privilege}, process.env.SECRET);
+                    addToLogs(username, 'admin', admin._id);
                     res.json({status : 202, message : 'Login successful', token});
                 }
             }
@@ -35,6 +36,7 @@ const loginStaff = async (req, res)=>{
                 }
                 else{
                     const token = jwt.sign({id : waiter._id, username : waiter.username, name: waiter.name, privilege : waiter.privilege}, process.env.SECRET);
+                    addToLogs(username, 'waiter', waiter._id);
                     res.json({status : 202, message : 'Login successful', token});
                 }
             }
@@ -51,6 +53,7 @@ const loginStaff = async (req, res)=>{
                 }
                 else{
                     const token = jwt.sign({id : chef._id, username : chef.username, name: chef.name, privilege : chef.privilege}, process.env.SECRET);
+                    addToLogs(username, 'chef', chef._id);
                     res.json({status : 202, message : 'Login successful', token});
                 }
             }

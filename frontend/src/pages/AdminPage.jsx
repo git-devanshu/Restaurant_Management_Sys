@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import '../styles/AdminPage.css';
 import {logout} from '../utils/helperFunctions';
 import { Button, Avatar } from '@chakra-ui/react';
 import ImgButton from '../components/ImgButton';
 import { useNavigate } from "react-router-dom";
+import {decodeToken} from '../utils/helperFunctions';
 /* Importing icons */
 import logoutIcon from '../images/logout.png';
 import ResIcon from '../images/restaurant.png';
@@ -25,15 +26,31 @@ import AdminTables from "../components/AdminTables";
 import AdminFeedback from "../components/AdminFeedback";
 import AdminMenu from "../components/AdminMenu";
 import AdminReservations from "../components/AdminReservations";
+import AdminOrders from "../components/AdminOrders";
+import AdminKitchen from "../components/AdminKitchen";
+import AdminWaiters from "../components/AdminWaiters";
+import AdminDashboard from "../components/AdminDashboard";
+import AdminLogs from "../components/AdminLogs";
 
 export default function AdminPage() {
     const navigate = useNavigate();
-    const name = 'Devanshu Lanjudkar';
-
     const [selected, setSelected] = useState(1);
+    const [userInfo, setUserInfo] = useState({});
+
+    useEffect(()=>{
+        putUserInformation();
+    }, []);
 
     const navigateToLogin = ()=>{
         navigate('/login/staff');
+    }
+
+    const putUserInformation = () =>{
+        const token = sessionStorage.getItem('token');
+        const user = decodeToken(token);
+        if(user){
+            setUserInfo({username : user.username, name: user.name});
+        }
     }
 
     return(
@@ -79,18 +96,18 @@ export default function AdminPage() {
                         <img src={menuIcon} alt='menu-item-icon'/>
                         <p>Menu</p>
                     </div>
-                    <div onClick={()=>setSelected(9)} className={selected === 9 ? 'sidebar-btn-selected' : 'sidebar-btn'}>    
+                    {/* <div onClick={()=>setSelected(9)} className={selected === 9 ? 'sidebar-btn-selected' : 'sidebar-btn'}>    
                         <img src={revenueIcon} alt='menu-item-icon'/>
                         <p>Revenue</p>
-                    </div>
+                    </div> */}
                     <div onClick={()=>setSelected(10)} className={selected === 10 ? 'sidebar-btn-selected' : 'sidebar-btn'}>    
                         <img src={feedbackIcon} alt='menu-item-icon'/>
                         <p>Feedbacks</p>
                     </div>
                     <p style={{color:'rgb(202, 202, 202)', fontSize:'14px', margin:'0 5px 5px 15px'}}>Profile</p>
                     <div className="sb-profile-div">
-                        <Avatar bg='blue.100' name={name}/>
-                        <p>{name}</p>
+                        <Avatar bg='blue.100' name={userInfo.name}/>
+                        <p>{userInfo.name}</p>
                         <h6>Administrator</h6>
                         <Button size='sm' onClick={()=>logout(navigateToLogin)}>Logout</Button>
                     </div>
@@ -104,17 +121,17 @@ export default function AdminPage() {
                     </div>
                 </div>
                 <div className="sidebar-display">
-                    {/* {selected === 1 && </>} */}
-                    {/* {selected === 2 && </>} */}
+                    {selected === 1 && <AdminDashboard/>}
+                    {selected === 2 && <AdminOrders/>}
                     {selected === 3 && <AdminReservations/>}
-                    {/* {selected === 4 && </>} */}
-                    {/* {selected === 5 && </>} */}
+                    {selected === 4 && <AdminKitchen/>}
+                    {selected === 5 && <AdminWaiters/>}
                     {selected === 6 && <AdminCustomers/>}
                     {selected === 7 && <AdminTables/>}
                     {selected === 8 && <AdminMenu/>}
                     {/* {selected === 9 && </>} */}
                     {selected === 10 && <AdminFeedback/>}
-                    {/* {selected === 11 && </>} */}
+                    {selected === 11 && <AdminLogs/>}
                     {/* {selected === 12 && </>} */}
                 </div>
             </div>

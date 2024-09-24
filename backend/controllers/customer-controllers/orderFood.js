@@ -4,7 +4,7 @@ const {KOT} = require('../../models/kotModel');
 const getMenu = async (req, res) =>{
     try{
         const privilege = req.privilege;
-        if(privilege === 'admin'){
+        if(privilege === 'user'){
             const data = await Menu.find({});
             res.json({status : 200, data});
         }
@@ -20,7 +20,7 @@ const getMenu = async (req, res) =>{
 const putOrders = async (req, res) => {
     try{
         const privilege = req.privilege;
-        if(privilege === 'admin'){
+        if(privilege === 'user'){
             const {orderList, total} = req.body;
             const custId = req.id;
             const kot = await KOT.findOneAndUpdate({custId, billStatus: 'pending'}, {

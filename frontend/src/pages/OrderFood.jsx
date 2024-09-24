@@ -72,7 +72,7 @@ export default function OrderFood(){
                 );
             }
             else{
-                return [...prevOrder, { itemName: item.itemName, price: item.price, qty: 1, status: 'pending' }];
+                return [...prevOrder, { itemName: item.itemName, price: item.price, qty: 1, status: 'pending', index : prevOrder.length }];
             }
         });
     };

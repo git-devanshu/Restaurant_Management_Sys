@@ -22,7 +22,7 @@ const addWaiter = async (req, res) =>{
     try{
         const privilege = req.privilege;
         if(privilege === 'admin'){
-            const {username, name, age, email, salary, password} = req.body;
+            const {username, name, age, email, password} = req.body;
             const user = await Waiter.findOne({username});
             if(!user){
                 const hashedPass = await bcrypt.hash(password, 10);
@@ -32,7 +32,6 @@ const addWaiter = async (req, res) =>{
                     email,
                     password : hashedPass,
                     age,
-                    salary
                 });
                 await waiter.save();
                 res.json({ status : 200, message : 'Waiter added successfully' });
@@ -76,8 +75,8 @@ const assignWaiter = async (req, res) =>{
     try{
         const privilege = req.privilege;
         if(privilege === 'admin'){
-            const {_id, tableNo} = req.body;
-            const waiter = await Waiter.findByIdAndUpdate({_id}, { $push : {servingTable : tableNo} });
+            const {id, tableNo} = req.body;
+            const waiter = await Waiter.findByIdAndUpdate({_id : id}, { $push : {servingTable : tableNo} });
             if(waiter){
                 res.json({ status : 200, message : 'Waiter assigned successfully' });
             }

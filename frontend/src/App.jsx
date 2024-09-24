@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { ChakraProvider } from '@chakra-ui/react';
 import { PrimeReactProvider } from 'primereact/api';
 import {BrowserRouter, Routes, Route, Navigate} from 'react-router-dom';
@@ -16,6 +16,9 @@ import AdminPage from './pages/AdminPage';
 import TableReservation from './pages/TableReservation';
 import OrderFood from './pages/OrderFood';
 import MyOrders from './pages/MyOrders';
+import KDSPage from './pages/KDSPage';
+import WaiterPage from './pages/WaiterPage';
+import FAQPage from './pages/FAQPage';
 
 function App() {
     return (
@@ -29,16 +32,14 @@ function App() {
                     <Route path='/forgot-password' element={<ForgotPassword/>}/>
                     <Route path='/login/staff' element={<StaffLogin/>}/>
                     <Route path='/forgot-password/staff' element={<StaffForgotPassword/>}/>
-                    <Route path='/home' element={<Home/>}/> {/* Protected Route */}
-                    <Route path='/admin-page' element={<AdminPage/>}/>
-                    {/* <Route path='/kds' element={}/> */}
-                    {/* <Route path='/waiter-page' element={}/> */}
-                    <Route path='/book-table' element={<TableReservation/>}/>
-                    <Route path='/order-food' element={<OrderFood/>}/>
-                    <Route path='/my-orders' element={<MyOrders/>}/>
-                    {/* <Route path='' element={}/> */}
-                    {/* <Route path='' element={}/> */}
-                    {/* <Route path='' element={}/> */}
+                    <Route path='/home' element={<ProtectedRoute privilege={'user'} component={<Home/>} navigatePath='/login' />}/>
+                    <Route path='/book-table' element={<ProtectedRoute privilege={'user'} component={<TableReservation/>} navigatePath='/login' />}/>
+                    <Route path='/order-food/:category' element={<ProtectedRoute privilege={'user'} component={<OrderFood/>} navigatePath='/login' />}/>
+                    <Route path='/my-orders' element={<ProtectedRoute privilege={'user'} component={<MyOrders/>} navigatePath='/login' />}/>
+                    <Route path='/admin-page' element={<ProtectedRoute privilege={'admin'} component={<AdminPage/>} navigatePath='/login/staff' />}/>
+                    <Route path='/chef-page' element={<ProtectedRoute privilege={'chef'} component={<KDSPage/>} navigatePath='/login/staff' />}/>
+                    <Route path='/waiter-page' element={<ProtectedRoute privilege={'waiter'} component={<WaiterPage/>} navigatePath='/login/staff' />}/>
+                    <Route path='/faq' element={<FAQPage />}/>
                     <Route path='/:notfound' element={<PageNotFound/>}/>
                 </Routes>
             </BrowserRouter>
@@ -47,14 +48,14 @@ function App() {
     )
 }
 
-const ProtectedHome = () =>{
-    const auth = checkAuthority('user') || checkAuthority('admin');
+const ProtectedRoute = ({privilege, component, navigatePath}) =>{
+    const auth = checkAuthority(privilege);
     if(auth){
-        return <Home/>
+        return component;
     }
     else{
-        return <Navigate to='/login'/>
+        return <Navigate to={navigatePath}/>
     }
 }
 
-export default App
+export default App;

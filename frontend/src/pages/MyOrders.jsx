@@ -5,7 +5,6 @@ import {Toaster, toast} from 'react-hot-toast';
 import {decodeToken, getCurrentDate, logout} from '../utils/helperFunctions';
 /* importing icons */
 import orderStatusIcon from '../images/order-status.png';
-import refreshIcon from '../images/refresh.png';
 import { useNavigate } from 'react-router-dom';
 import foodiesIcon from '../images/restaurant.png';
 import { Button, Stack, CloseButton, Spacer, Input, Text, Avatar, Badge, Divider } from '@chakra-ui/react';
@@ -134,7 +133,7 @@ export default function MyOrders(){
                                 </div>
                             );
                         })}
-                        <button onClick={()=>{navigate('/order-food')}}>
+                        <button onClick={()=>{navigate('/order-food/1')}}>
                             <img src={addIcon} style={{height:'24px', width:'24px'}}/>
                             Add Orders
                         </button>
@@ -182,6 +181,7 @@ export default function MyOrders(){
                     </div>
                 </div>
             </div>
+            <Toaster/>
         </div>
     );
 }

@@ -131,14 +131,14 @@ export default function AdminFeedback(){
                             <Stack direction={'row'}>
                                 <h2 style={{margin:'0'}}>Customer Feedback</h2>
                                 <Spacer/>
-                                <CloseButton color="white" onClick={()=>setView(false)}/>
+                                <CloseButton onClick={()=>setView(false)}/>
                             </Stack>
                             <Stack direction='row' spacing={3}>
-                                <Input variant='unstyled' color={'white'} type="text" name="name" value={feedback.name}/>
+                                <Input variant='unstyled' type="text" name="name" value={feedback.name}/>
                                 <Spacer/>
-                                <Input variant='unstyled' color={'white'} type="text" name="custId" value={feedback.custId}/>
+                                <Input variant='unstyled' type="text" name="custId" value={feedback.custId}/>
                             </Stack>
-                            <Input variant='unstyled' color={'white'} type="text" name="dateTime" value={feedback.dateTime}/>
+                            <Input variant='unstyled' type="text" name="dateTime" value={feedback.dateTime}/>
                             <Textarea variant={'filled'} name="feedback" value={feedback.review} style={{height: '170px', width: '100%'}}/>
                             <Stack direction={'row'} spacing={2}>
                                 <Button onClick={deleteFeedback} bg={'#FF0000'}>Delete</Button>

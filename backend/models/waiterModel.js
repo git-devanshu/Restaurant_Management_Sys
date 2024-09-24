@@ -7,7 +7,6 @@ const waiterSchema = new mongoose.Schema({
     password : {type : String, required : true},
     vfcode : {type : String, default : '0'},
     age : {type : Number, required : true},
-    salary : {type : Number, required : true},
     servingTable : {type : Array, default : []}, //tableNo of table the waiter is currently assigned to
     privilege : {type : String, default : 'waiter'}
 });

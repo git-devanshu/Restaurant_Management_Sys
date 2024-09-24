@@ -49,9 +49,9 @@ export default function TableReservation(){
         if(selectedTable !== -1){
             setDisableBtn(false);
         }
-        if(selectedTable !== -1 && data[selectedTable].status === 'booked'){
-            setDisableBtn(true);
-        }
+        // if(selectedTable !== -1 && data[selectedTable].status === 'occupied'){
+        //     setDisableBtn(true);
+        // }
     }, [selectedTable]);
 
     const bookTable = ()=> {

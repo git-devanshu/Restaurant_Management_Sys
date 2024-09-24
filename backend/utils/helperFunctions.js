@@ -1,3 +1,6 @@
+const fs = require('fs');
+const path = require('path');
+
 const generateVerificationCode = (size) =>{
     let code = '';
     const characters = '0123456789';
@@ -17,7 +20,7 @@ type values :
 5 - hh:mm
 else - YYYY-MM-DD
 */
-function getCurrentDate(type){
+const getCurrentDate = (type) =>{
     const date = new Date();
     var dd = date.getDate();
     var mm = date.getMonth();
@@ -39,14 +42,24 @@ function getCurrentDate(type){
         return yy;
     }
     else if(type === 5){
-        return h.toString(10).padStart(2, '0') + ':' + min.toString(10).padStart(2, '0');
+        return h + ':' + min;
     }
     else{
         return yy + '-' + (mm+1) + '-' + dd;
     }
 }
 
+const addToLogs = (username, privilege, id) =>{
+    const date = new Date();
+    const data = '-> login ...' + date + '\n' + '   ' + username + ' ' + privilege + ' ' + id + '\n';
+    // const logFilePath = path.join(__dirname, 'backend', 'logs.txt');
+    fs.appendFileSync('C:/Users/devan/OneDrive/Desktop/Projects/Restaurant  POS/backend/logs.txt', data);
+}
+
+// 'C:/Users/devan/OneDrive/Desktop/Projects/Restaurant  POS/backend/logs.txt'
+
 module.exports = {
     generateVerificationCode, 
     getCurrentDate,
+    addToLogs
 }

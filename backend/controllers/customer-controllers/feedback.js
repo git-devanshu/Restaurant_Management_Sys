@@ -1,14 +1,16 @@
 const {Feedback} = require('../../models/feedbackModel');
+const {getCurrentDate} = require('../../utils/helperFunctions');
 
 const submitFeedback = async (req, res) =>{
     try{
         const privilege = req.privilege;
-        if(privilege === 'admin'){
+        if(privilege === 'user'){
             const {review} = req.body;
             const feedback = new Feedback({
                 name : req.name,
                 custId : req.id,
                 review,
+                dateTime : getCurrentDate(2)
             });
             await feedback.save();
             res.json({status : 200, message : 'Feedback sent'});

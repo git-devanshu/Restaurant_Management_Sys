@@ -7,7 +7,6 @@ const chefSchema = new mongoose.Schema({
     password : {type : String, required : true},
     vfcode : {type : String, default : '0'},
     age : {type : Number, required : true},
-    salary : {type : Number, required : true},
     speciality : {type : String, required : true},
     privilege : {type : String, default : 'chef'}
 });

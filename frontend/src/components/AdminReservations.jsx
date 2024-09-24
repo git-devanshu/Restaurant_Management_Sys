@@ -73,6 +73,7 @@ export default function AdminReservations(){
             }
         })
         .catch(err =>{
+            console.log(err);
             toast.error('Error approving request');
         })
     }
@@ -101,6 +102,7 @@ export default function AdminReservations(){
             }
         })
         .catch(err =>{
+            console.log(err);
             toast.error('Error rejecting request');
         })
     }

@@ -5,7 +5,7 @@ const feedbackSchema = new mongoose.Schema({
     custId : String,
     review  : String,
     name : String,
-    dateTime : {type : String, default : getCurrentDate(2)}
+    dateTime : {type : String, default : ''}
 });
 
 const Feedback = mongoose.model('feedback', feedbackSchema, 'feedback');

@@ -1,7 +1,7 @@
 const {User} = require('../models/userModel');
 const bcrypt = require('bcryptjs');
 const {sendSignupMail, sendVFCodeMail} = require('../utils/sendMail');
-const {generateVerificationCode} = require('../utils/helperFunctions');
+const {generateVerificationCode, addToLogs} = require('../utils/helperFunctions');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
@@ -41,6 +41,7 @@ const loginUser = async (req, res)=>{
             }
             else{
                 const token = jwt.sign({id : user._id, username : user.username, name: user.name, privilege : user.privilege}, process.env.SECRET);
+                addToLogs(username, 'user', user._id);
                 res.json({status : 202, message : 'Login successful', token});
             }
         }

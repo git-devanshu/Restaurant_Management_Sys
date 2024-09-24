@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import axios from 'axios';
 import '../styles/landingPage.css';
 import { Input, Stack, InputGroup, InputLeftElement, Center, Image, Text, Button, Spacer, Heading, Wrap, WrapItem } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
@@ -32,28 +33,55 @@ import addressIcon from '../images/location.png';
 import emailIcon from '../images/email.png';
 import contactIcon from '../images/phone.png';
 import {getCurrentDate, logout} from '../utils/helperFunctions';
+import { Toaster, toast } from 'react-hot-toast';
 
 export default function Home() {
     const navigate = useNavigate();
+    const [review, setReview] = useState('');
 
     const navigateToLogin = () =>{
         navigate('/login');
-    }
-
-    const navigateToSignup = () =>{
-        navigate('/signup');
     }
 
     const navigateToTableBooking = () =>{
         navigate('/book-table');
     }
 
-    const navigateToOrderFood = () =>{
-        navigate('/order-food');
+    const navigateToOrderFood = (ind) =>{
+        navigate(`/order-food/${ind}`);
     }
 
     const navigateToMyOrders = () =>{
         navigate('/my-orders');
+    }
+
+    const navigateToFAQs = () =>{
+        navigate('/faq')
+    }
+
+    const handleChange = (e) =>{
+        e.preventDefault();
+        setReview(e.target.value);
+    }
+
+    const submitFeedback = () =>{
+        const token = sessionStorage.getItem('token');
+        axios.post('http://localhost:8000/customer/feedback', {review}, {headers : {
+            'Authorization' : `Bearer ${token}`
+        }})
+        .then(res =>{
+            if(res.data.status === 200){
+                toast.success(res.data.message);
+                setReview('');
+            }
+            else{
+                toast.error(res.data.message);
+            }
+        })
+        .catch(err =>{
+            console.log(err);
+            toast.error('Error submitting feedback');
+        })
     }
 
     return (
@@ -77,10 +105,10 @@ export default function Home() {
                     <Text className='nav-lp-contact' fontSize='lg' color='white' _hover={{textDecoration:'underline'}} style={{cursor:'pointer'}}>Orders</Text>
                 </Center>
                 <Center w='auto' h='40px'>
-                    <Text className='nav-lp-contact' fontSize='lg' color='white' _hover={{textDecoration:'underline'}} style={{cursor:'pointer'}}>Contact</Text>
+                    <Text className='nav-lp-contact' fontSize='lg' color='white' _hover={{textDecoration:'underline'}} style={{cursor:'pointer'}}>Feedback</Text>
                 </Center>
                 <Center w='auto' h='40px'>
-                    <Text className='nav-lp-contact' fontSize='lg' color='white' _hover={{textDecoration:'underline'}} style={{cursor:'pointer'}}>Feedback</Text>
+                    <Text onClick={navigateToFAQs} className='nav-lp-contact' fontSize='lg' color='white' _hover={{textDecoration:'underline'}} style={{cursor:'pointer'}}>FAQs</Text>
                 </Center>
                 <Spacer/>
                 <Center w='auto' h='40px'>
@@ -211,49 +239,49 @@ export default function Home() {
                 <div>
                     <Text color='black' size='3xl' as='b' fontSize='40px'>Order Food</Text>
                     <p style={{color:'#222222', fontSize:'22px', width:'230px', textAlign:'left'}}>Browse food categories or check out our full menu</p>
-                    <Button onClick={navigateToOrderFood} w='140px' border='2px' borderColor='#ff0000' color='white' bg='#ff0000' borderRadius='20px' _hover={{bg:'#ee0000'}} style={{marginTop:'10px'}}>
+                    <Button onClick={()=>navigateToOrderFood(1)} w='140px' border='2px' borderColor='#ff0000' color='white' bg='#ff0000' borderRadius='20px' _hover={{bg:'#ee0000'}} style={{marginTop:'10px'}}>
                         View Menu
                     </Button>
                 </div>
                 <div className="famous-order-hp">
                     <img src={thaliImage}/>
                     <h2>Indian Thali</h2>
-                    <button>View</button>
+                    <button onClick={()=>navigateToOrderFood(2)}>View</button>
                 </div>
                 <div className="famous-order-hp">
                     <img src={burgerImage}/>
                     <h2>Burger-Fries</h2>
-                    <button>View</button>
+                    <button onClick={()=>navigateToOrderFood(10)}>View</button>
                 </div>
                 <div className="famous-order-hp">
                     <img src={southIndImage}/>
                     <h2>South Indian</h2>
-                    <button>View</button>
+                    <button onClick={()=>navigateToOrderFood(4)}>View</button>
                 </div>
                 <div className="famous-order-hp">
                     <img src={pizzaImage}/>
                     <h2>Pizza</h2>
-                    <button>View</button>
+                    <button onClick={()=>navigateToOrderFood(5)}>View</button>
                 </div>
                 <div className="famous-order-hp">
                     <img src={noodlesImage}/>
                     <h2>Noodles</h2>
-                    <button>View</button>
+                    <button onClick={()=>navigateToOrderFood(6)}>View</button>
                 </div>
                 <div className="famous-order-hp">
                     <img src={dessertImage}/>
                     <h2>Dessert</h2>
-                    <button>View</button>
+                    <button onClick={()=>navigateToOrderFood(7)}>View</button>
                 </div>
                 <div className="famous-order-hp">
                     <img src={drinksImage}/>
                     <h2>Smoothies</h2>
-                    <button>View</button>
+                    <button onClick={()=>navigateToOrderFood(8)}>View</button>
                 </div>
                 <div className="famous-order-hp">
                     <img src={samosaImage}/>
                     <h2>Breakfast</h2>
-                    <button>View</button>
+                    <button onClick={()=>navigateToOrderFood(11)}>View</button>
                 </div>
             </div>
         </div>
@@ -265,8 +293,8 @@ export default function Home() {
             </Center>
             <div className='hp-feedback-grid'>
                 <div className='hp-feedback-dark-bg'>
-                    <textarea placeholder='Share your experience here'/>
-                    <Button w='140px' border='2px' borderColor='#ff0000' color='white' bg='#ff0000' borderRadius='20px' _hover={{bg:'#ee0000'}} style={{marginTop:'10px'}}>
+                    <textarea value={review} onChange={handleChange} placeholder='Share your experience here' style={{padding:'10px'}}/>
+                    <Button onClick={submitFeedback} w='140px' border='2px' borderColor='#ff0000' color='white' bg='#ff0000' borderRadius='20px' _hover={{bg:'#ee0000'}} style={{marginTop:'10px'}}>
                         Submit
                     </Button>
                 </div>
@@ -388,7 +416,7 @@ export default function Home() {
                     <div className='footer-contact-ep'>
                         <h4>Contact</h4>
                         <p><img src={contactIcon}/>+91 9876543210</p>
-                        <p><img src={emailIcon}/>@foodies.help@gmail.com</p>
+                        <p><img src={emailIcon}/>foodies.help@gmail.com</p>
                         <p><img src={addressIcon}/>Address of the restaurant, city</p>
                     </div>
                     <div className='footer-time-ep'>
@@ -403,6 +431,7 @@ export default function Home() {
                 </div>
             </div>
         </div>
+        <Toaster/>
         </>
     )
 }

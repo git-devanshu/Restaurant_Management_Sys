@@ -43,7 +43,9 @@ const approveRequest = async (req, res) =>{
             if(reservation){
                 const newKOT = new KOT({
                     tableNo,
-                    custId
+                    custId,
+                    orderDate : getCurrentDate(2),
+                    orderTime : getCurrentDate(5)
                 });
                 const kot = await newKOT.save();
                 const customer = await User.findByIdAndUpdate({_id : custId}, {bookingId : kot._id});

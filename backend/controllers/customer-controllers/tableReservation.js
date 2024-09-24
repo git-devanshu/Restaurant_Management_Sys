@@ -5,7 +5,7 @@ const {getCurrentDate} = require('../../utils/helperFunctions');
 const getAllTablesData = async (req, res) =>{
     try{
         const privilege = req.privilege;
-        if(privilege === 'admin'){
+        if(privilege === 'user'){
             const data = await Table.find({});
             res.json({status : 200, data});
         }
@@ -21,7 +21,7 @@ const getAllTablesData = async (req, res) =>{
 const requestBooking = async (req, res) =>{
     try{
         const privilege = req.privilege;
-        if(privilege === 'admin'){
+        if(privilege === 'user'){
             const {id} = req.body;
             const custId = req.id;
             await User.findByIdAndUpdate({_id : custId}, {

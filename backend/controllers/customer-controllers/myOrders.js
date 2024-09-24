@@ -4,7 +4,7 @@ const {KOT} = require('../../models/kotModel');
 const getBookingStatus = async (req, res) =>{
     try{
         const privilege = req.privilege;
-        if(privilege === 'admin'){
+        if(privilege === 'user'){
             const user = await User.findById({_id : req.id});
             const bookingId = user.bookingId;
             if(bookingId === '0'){

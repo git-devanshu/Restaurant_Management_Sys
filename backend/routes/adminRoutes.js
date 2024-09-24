@@ -14,15 +14,13 @@ const {getRevenueData} = require('../controllers/admin-controllers/revenue');
 const {getBookingRequests, getCurrentBookings, approveRequest, rejectRequest, freeTable} = require('../controllers/admin-controllers/reservation');
 const {getCurrentKOTs, approveOrder, rejectOrder, markBillPaid, getOrderHistory, removeHistoryItem, clearHistory} = require('../controllers/admin-controllers/orders');
 const {getChefs, addChef, removeChef, getKDSdata} = require('../controllers/admin-controllers/kitchen');
-// const  = require('../controllers/admin-controllers');
+const {getDashboardData} = require('../controllers/admin-controllers/dashboard');
+const {getSystemLogs} = require('../controllers/admin-controllers/logs');
 
 // endpoint prefix : /admin
 
 // dashboard functions
-// adminRouter.get();
-// adminRouter.post();
-// adminRouter.put();
-// adminRouter.delete();
+adminRouter.get('/dashboard', checkAuthorization, getDashboardData);
 
 // customer functions
 adminRouter.get('/customers', checkAuthorization, getCustomer);
@@ -76,5 +74,8 @@ adminRouter.delete('/tables/:id', checkAuthorization, removeTable);
 // feedback functions
 adminRouter.get('/feedback', checkAuthorization, getFeedback);
 adminRouter.delete('/feedback/:id', checkAuthorization, removeFeedback);
+
+// logs functions
+adminRouter.get('/logs', checkAuthorization, getSystemLogs);
 
 module.exports = {adminRouter};

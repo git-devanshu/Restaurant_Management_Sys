@@ -5,9 +5,7 @@ const getRevenueData = async (req, res) =>{
         const privilege = req.privilege;
         if(privilege === 'admin'){
             const data = await KOT.aggregate([
-                {
-                    $match : { billStatus : 'paid' }
-                },
+                {$match : { billStatus : 'paid' }},
                 {
                     $addFields : {
                         monthYear : {
@@ -20,10 +18,7 @@ const getRevenueData = async (req, res) =>{
                     }
                 },
                 {
-                    $group : {
-                        _id : "$monthYear",
-                        totalRevenue : { $sum : "$totalPrice" }
-                    }
+                    $group : {_id : "$monthYear", totalRevenue : { $sum : "$totalPrice" }}
                 }
             ]);
             res.json({ status : 200, data });
