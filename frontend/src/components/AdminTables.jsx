@@ -13,6 +13,7 @@ import filterIcon from '../images/filter.png';
 import { Button, Stack, CloseButton, Spacer, Input, Select, Text, Badge } from '@chakra-ui/react';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
+import {getBaseUrl} from '../utils/helperFunctions';
 
 export default function AdminTables(){
     const [table, setTable] = useState({
@@ -58,7 +59,7 @@ export default function AdminTables(){
     
     //fetch the data from the db
     useEffect(()=>{
-        axios.get('http://localhost:8000/admin/tables', {headers : {
+        axios.get(getBaseUrl()+'/admin/tables', {headers : {
             'Authorization' : 'Bearer ' + sessionStorage.getItem('token')
         }})
         .then(res =>{
@@ -85,7 +86,7 @@ export default function AdminTables(){
             return;
         }
         const toastId = toast.loading('Adding Table...');
-        axios.post('http://localhost:8000/admin/tables', table, {headers : {
+        axios.post(getBaseUrl()+'/admin/tables', table, {headers : {
             'Authorization' : 'Bearer ' + sessionStorage.getItem('token')
         }})
         .then(res =>{
@@ -119,7 +120,7 @@ export default function AdminTables(){
             return;
         }
         const toastId = toast.loading('Updating Table...');
-        axios.put('http://localhost:8000/admin/tables', table, {headers : {
+        axios.put(getBaseUrl()+'/admin/tables', table, {headers : {
             'Authorization' : 'Bearer ' + sessionStorage.getItem('token')
         }})
         .then(res =>{
@@ -142,7 +143,7 @@ export default function AdminTables(){
     const deleteTableData = (index) =>{
         const toastId = toast.loading('Loading...');
         const id = data[index]._id;
-        axios.delete(`http://localhost:8000/admin/tables/${id}`, {headers : {
+        axios.delete(`${getBaseUrl()}/admin/tables/${id}`, {headers : {
             'Authorization' : 'Bearer ' + sessionStorage.getItem('token')
         }})
         .then(res =>{

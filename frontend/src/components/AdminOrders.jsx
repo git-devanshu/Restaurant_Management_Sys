@@ -13,6 +13,7 @@ import {CheckCircleIcon, TimeIcon, DeleteIcon, CheckIcon, DownloadIcon} from '@c
 import tableIcon from '../images/table-4.png';
 import BillComponent from "./BillComponent";
 import html2pdf from 'html2pdf.js';
+import {getBaseUrl} from '../utils/helperFunctions';
 
 export default function AdminOrders(){
     const [refresh, setRefresh] = useState(false);
@@ -26,7 +27,7 @@ export default function AdminOrders(){
 
     const getCurrentKOTS = () =>{
         const token = sessionStorage.getItem('token');
-        axios.get('http://localhost:8000/admin/orders/current-bills', {headers : {
+        axios.get(getBaseUrl()+'/admin/orders/current-bills', {headers : {
             Authorization: `Bearer ${token}`
         }})
         .then(res =>{
@@ -46,7 +47,7 @@ export default function AdminOrders(){
 
     const getOldKOTS = () =>{
         const token = sessionStorage.getItem('token');
-        axios.get('http://localhost:8000/admin/orders/order-history', {headers : {
+        axios.get(getBaseUrl()+'/admin/orders/order-history', {headers : {
             Authorization: `Bearer ${token}`
         }})
         .then(res =>{
@@ -110,7 +111,7 @@ export default function AdminOrders(){
 
     const cancelOrder = (index) =>{
         const token = sessionStorage.getItem('token');
-        axios.put('http://localhost:8000/admin/orders/reject', {
+        axios.put(getBaseUrl()+'/admin/orders/reject', {
             id : order._id,
             ind : index,
             price : order.items[index].price,
@@ -136,7 +137,7 @@ export default function AdminOrders(){
 
     const prepareOrder = (index) =>{
         const token = sessionStorage.getItem('token');
-        axios.put('http://localhost:8000/admin/orders/approve', {
+        axios.put(getBaseUrl()+'/admin/orders/approve', {
             id : order._id,
             ind : index
         }, {headers : {
@@ -160,7 +161,7 @@ export default function AdminOrders(){
 
     const clearItemFromHistory = () =>{
         const token = sessionStorage.getItem('token');
-        axios.delete(`http://localhost:8000/admin/orders/remove-item/${order._id}`, {headers : {
+        axios.delete(`${getBaseUrl()}/admin/orders/remove-item/${order._id}`, {headers : {
             Authorization: `Bearer ${token}`
         }})
         .then(res =>{
@@ -181,7 +182,7 @@ export default function AdminOrders(){
 
     const clearCompleteHistory = () =>{
         const token = sessionStorage.getItem('token');
-        axios.delete('http://localhost:8000/admin/orders/clear-all', {headers : {
+        axios.delete(getBaseUrl()+'/admin/orders/clear-all', {headers : {
             Authorization: `Bearer ${token}`
         }})
         .then(res =>{
@@ -203,7 +204,7 @@ export default function AdminOrders(){
 
     const markPaid = () =>{
         const token = sessionStorage.getItem('token');
-        axios.put('http://localhost:8000/admin/orders/mark-paid', {id : order._id}, {headers : {
+        axios.put(getBaseUrl()+'/admin/orders/mark-paid', {id : order._id}, {headers : {
             Authorization: `Bearer ${token}`
         }})
         .then(res =>{

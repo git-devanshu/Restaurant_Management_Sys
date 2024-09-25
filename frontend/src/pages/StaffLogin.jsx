@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import {Toaster, toast} from 'react-hot-toast';
 import {checkAuthority} from '../utils/helperFunctions';
+import {getBaseUrl} from '../utils/helperFunctions';
 
 export default function StaffLogin() {
     const navigate = useNavigate();
@@ -41,7 +42,7 @@ export default function StaffLogin() {
         }
         else{
             const toastId = toast.loading(`Loggin in as ${user.role}...`);
-            await axios.post('http://localhost:8000/staff/login', user)
+            await axios.post(getBaseUrl()+'/staff/login', user)
             .then(res => {
                 if(res.data.status === 202){
                     toast.success(res.data.message, {id : toastId});

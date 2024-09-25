@@ -96,11 +96,7 @@ export default function AdminPage() {
                         <img src={menuIcon} alt='menu-item-icon'/>
                         <p>Menu</p>
                     </div>
-                    {/* <div onClick={()=>setSelected(9)} className={selected === 9 ? 'sidebar-btn-selected' : 'sidebar-btn'}>    
-                        <img src={revenueIcon} alt='menu-item-icon'/>
-                        <p>Revenue</p>
-                    </div> */}
-                    <div onClick={()=>setSelected(10)} className={selected === 10 ? 'sidebar-btn-selected' : 'sidebar-btn'}>    
+                    <div onClick={()=>setSelected(9)} className={selected === 10 ? 'sidebar-btn-selected' : 'sidebar-btn'}>    
                         <img src={feedbackIcon} alt='menu-item-icon'/>
                         <p>Feedbacks</p>
                     </div>
@@ -111,13 +107,9 @@ export default function AdminPage() {
                         <h6>Administrator</h6>
                         <Button size='sm' onClick={()=>logout(navigateToLogin)}>Logout</Button>
                     </div>
-                    <div onClick={()=>setSelected(11)} className={selected === 11 ? 'sidebar-btn-selected' : 'sidebar-btn'}>    
+                    <div onClick={()=>setSelected(10)} className={selected === 11 ? 'sidebar-btn-selected' : 'sidebar-btn'}>    
                         <img src={logsIcon} alt='menu-item-icon'/>
                         <p>Logs</p>
-                    </div>
-                    <div onClick={()=>setSelected(12)} className={selected === 12 ? 'sidebar-btn-selected' : 'sidebar-btn'}>    
-                        <img src={helpIcon} alt='menu-item-icon'/>
-                        <p>Help</p>
                     </div>
                 </div>
                 <div className="sidebar-display">
@@ -129,10 +121,8 @@ export default function AdminPage() {
                     {selected === 6 && <AdminCustomers/>}
                     {selected === 7 && <AdminTables/>}
                     {selected === 8 && <AdminMenu/>}
-                    {/* {selected === 9 && </>} */}
-                    {selected === 10 && <AdminFeedback/>}
-                    {selected === 11 && <AdminLogs/>}
-                    {/* {selected === 12 && </>} */}
+                    {selected === 9 && <AdminFeedback/>}
+                    {selected === 10 && <AdminLogs/>}
                 </div>
             </div>
         </div>

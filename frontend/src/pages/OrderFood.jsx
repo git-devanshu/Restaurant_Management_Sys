@@ -20,7 +20,8 @@ import vegFoodIcon from '../images/veg-food-icon.png';
 import nonVegIcon from '../images/non-veg-icon.png';
 import { useNavigate, useParams } from 'react-router-dom';
 import foodiesIcon from '../images/restaurant.png';
-import { Button, Stack, CloseButton, Spacer, Input } from '@chakra-ui/react';
+import { Button, Spacer } from '@chakra-ui/react';
+import {getBaseUrl} from '../utils/helperFunctions';
 
 export default function OrderFood(){
     const {category} = useParams();
@@ -34,7 +35,7 @@ export default function OrderFood(){
 
     useEffect(()=>{
         const token = sessionStorage.getItem('token');
-        axios.get('http://localhost:8000/customer/order', {headers : {
+        axios.get(getBaseUrl()+'/customer/order', {headers : {
             Authorization : `Bearer ${token}`
         }})
         .then(res =>{
@@ -83,7 +84,7 @@ export default function OrderFood(){
         }
         const toastId = toast.loading('Placing Order...');
         const token = sessionStorage.getItem('token');
-        axios.put('http://localhost:8000/customer/order', {orderList, total}, {headers : {
+        axios.put(getBaseUrl()+'/customer/order', {orderList, total}, {headers : {
             Authorization : `Bearer ${token}`
         }})
         .then(res =>{

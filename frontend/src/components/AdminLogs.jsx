@@ -3,6 +3,7 @@ import axios from 'axios';
 import '../styles/AdminOptions.css';
 import {Toaster, toast} from 'react-hot-toast';
 import {RepeatIcon} from '@chakra-ui/icons';
+import {getBaseUrl} from '../utils/helperFunctions';
 
 export default function AdminLogs(){
     const [logs, setLogs] = useState('');
@@ -10,7 +11,7 @@ export default function AdminLogs(){
 
     useEffect(()=>{
         const token = sessionStorage.getItem('token');
-        axios.get('http://localhost:8000/admin/logs', {headers : {
+        axios.get(getBaseUrl()+'/admin/logs', {headers : {
             Authorization : `Bearer ${token}`
         }})
         .then(res=>{

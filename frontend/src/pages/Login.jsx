@@ -6,6 +6,7 @@ import foodiesIcon from '../images/restaurant.png';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import {Toaster, toast} from 'react-hot-toast';
+import {getBaseUrl} from '../utils/helperFunctions';
 
 export default function Login() {
     const navigate = useNavigate();
@@ -39,7 +40,7 @@ export default function Login() {
         }
         else{
             const toastId = toast.loading('Loggin in...');
-            await axios.post('http://localhost:8000/user/login', user)
+            await axios.post(getBaseUrl()+'/user/login', user)
             .then(res => {
                 if(res.data.status === 202){
                     toast.success(res.data.message, {id : toastId});

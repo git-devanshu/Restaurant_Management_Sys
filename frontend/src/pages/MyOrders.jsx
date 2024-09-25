@@ -2,16 +2,17 @@ import React, { useEffect, useState } from 'react';
 import '../styles/MyOrders.css';
 import axios from 'axios';
 import {Toaster, toast} from 'react-hot-toast';
-import {decodeToken, getCurrentDate, logout} from '../utils/helperFunctions';
+import {decodeToken, logout} from '../utils/helperFunctions';
 /* importing icons */
 import orderStatusIcon from '../images/order-status.png';
 import { useNavigate } from 'react-router-dom';
 import foodiesIcon from '../images/restaurant.png';
-import { Button, Stack, CloseButton, Spacer, Input, Text, Avatar, Badge, Divider } from '@chakra-ui/react';
+import { Button, Spacer, Text, Avatar, Badge, Divider } from '@chakra-ui/react';
 import {RepeatIcon} from '@chakra-ui/icons';
 import addIcon from '../images/add2.png';
 import html2pdf from 'html2pdf.js';
 import BillComponent from '../components/BillComponent';
+import {getBaseUrl} from '../utils/helperFunctions';
 
 export default function MyOrders(){
     const navigate = useNavigate();
@@ -46,7 +47,7 @@ export default function MyOrders(){
 
     const fetchCurrentOrders = () =>{
         const token = sessionStorage.getItem('token');
-        axios.get('http://localhost:8000/customer/my-orders', {headers : {
+        axios.get(getBaseUrl()+'/customer/my-orders', {headers : {
             Authorization: `Bearer ${token}`
         }})
         .then(res => {

@@ -9,6 +9,7 @@ import viewIcon from '../images/view.png';
 import { Button, Stack, CloseButton, Spacer, Input, Text, Textarea } from '@chakra-ui/react';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
+import {getBaseUrl} from '../utils/helperFunctions';
 
 export default function AdminFeedback(){
     const [refresh, setRefresh] = useState(false);
@@ -31,7 +32,7 @@ export default function AdminFeedback(){
 
     useEffect(()=>{
         const token = sessionStorage.getItem('token');
-        axios.get('http://localhost:8000/admin/feedback', {headers : {
+        axios.get(getBaseUrl()+'/admin/feedback', {headers : {
             Authorization : `Bearer ${token}`,
         }})
         .then(res => {
@@ -66,7 +67,7 @@ export default function AdminFeedback(){
 
     const deleteFeedback = () =>{
         const token = sessionStorage.getItem('token');
-        axios.delete(`http://localhost:8000/admin/feedback/${feedback.id}`, {headers : {
+        axios.delete(`${getBaseUrl()}/admin/feedback/${feedback.id}`, {headers : {
             Authorization : `Bearer ${token}`
         }})
         .then(res => {

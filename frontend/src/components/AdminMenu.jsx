@@ -24,6 +24,7 @@ import otherIcon from '../images/food/other-food.png';
 import { Button, Stack, Input, Select, Text } from '@chakra-ui/react';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
+import {getBaseUrl} from '../utils/helperFunctions';
 
 export default function AdminMenu(){
     const [refresh, setRefresh] = useState(false);
@@ -40,7 +41,7 @@ export default function AdminMenu(){
 
     useEffect(()=>{
         const token = sessionStorage.getItem('token');
-        axios.get('http://localhost:8000/admin/menu', {headers : {
+        axios.get(getBaseUrl()+'/admin/menu', {headers : {
             'Authorization' : `Bearer ${token}`
         }})
         .then(res => {
@@ -95,7 +96,7 @@ export default function AdminMenu(){
     const addItem = (e) =>{
         e.preventDefault();
         const token = sessionStorage.getItem('token');
-        axios.post('http://localhost:8000/admin/menu', item, {headers : {
+        axios.post(getBaseUrl()+'/admin/menu', item, {headers : {
             'Authorization' : `Bearer ${token}`
         }})
         .then(res => {
@@ -122,7 +123,7 @@ export default function AdminMenu(){
     const removeItem = (index) =>{
         const token = sessionStorage.getItem('token');
         const itemId = data[index]._id;
-        axios.delete(`http://localhost:8000/admin/menu/${itemId}`, {headers : {
+        axios.delete(`${getBaseUrl()}/admin/menu/${itemId}`, {headers : {
             'Authorization' : `Bearer ${token}`
         }})
         .then(res => {

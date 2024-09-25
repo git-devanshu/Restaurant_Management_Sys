@@ -15,6 +15,7 @@ import waiterIcon from '../images/waiter.png';
 import orderIcon from '../images/orders2.png';
 import revenueIcon from '../images/revenue.png';
 import menuIcon from '../images/menu1.png';
+import {getBaseUrl} from '../utils/helperFunctions';
 
 export default function AdminDashboard(){
     const [data, setData] = useState({
@@ -47,7 +48,7 @@ export default function AdminDashboard(){
 
     const fetchDashboardData = () =>{
         const token = sessionStorage.getItem('token');
-        axios.get('http://localhost:8000/admin/dashboard', {headers : {
+        axios.get(getBaseUrl()+'/admin/dashboard', {headers : {
             Authorization : `Bearer ${token}`
         }})
         .then(res=>{
@@ -77,7 +78,7 @@ export default function AdminDashboard(){
 
     const fetchRevenueData = () =>{
         const token = sessionStorage.getItem('token');
-        axios.get('http://localhost:8000/admin/revenue', {headers : {
+        axios.get(getBaseUrl()+'/admin/revenue', {headers : {
             Authorization : `Bearer ${token}`
         }})
         .then(res=>{

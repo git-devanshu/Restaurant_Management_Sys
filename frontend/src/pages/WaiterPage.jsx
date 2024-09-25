@@ -7,6 +7,7 @@ import refreshIcon from '../images/refresh.png';
 import foodiesIcon from '../images/restaurant.png';
 import {logout, decodeToken} from '../utils/helperFunctions';
 import { useNavigate } from 'react-router-dom';
+import {getBaseUrl} from '../utils/helperFunctions';
 
 export default function WaiterPage() {
     const navigate = useNavigate();
@@ -38,7 +39,7 @@ export default function WaiterPage() {
 
     const fetchWaiterData = () =>{
         const token = sessionStorage.getItem('token');
-        axios.get('http://localhost:8000/waiter/get-data', {headers : {
+        axios.get(getBaseUrl()+'/waiter/get-data', {headers : {
             'Authorization': `Bearer ${token}`
         }})
         .then(res =>{

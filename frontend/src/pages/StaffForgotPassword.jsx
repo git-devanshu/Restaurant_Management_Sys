@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import {Toaster, toast} from 'react-hot-toast';
 import vfcodeIcon from '../images/vfcode.png';
+import {getBaseUrl} from '../utils/helperFunctions';
 
 export default function StaffForgotPassword() {
     const navigate = useNavigate();
@@ -29,7 +30,7 @@ export default function StaffForgotPassword() {
         }
         else{
             const toastId = toast.loading('Verifying...');
-            axios.put('http://localhost:8000/staff/forgot-password', {username, role})
+            axios.put(getBaseUrl()+'/staff/forgot-password', {username, role})
             .then(res => {
                 if(res.data.status === 200){
                     toast(res.data.message, {id :toastId});
@@ -57,7 +58,7 @@ export default function StaffForgotPassword() {
         }
         else{
             const toastId = toast.loading('Setting new password...');
-            axios.put('http://localhost:8000/staff/reset-password', {vfcode, password, username, role})
+            axios.put(getBaseUrl()+'/staff/reset-password', {vfcode, password, username, role})
             .then(res =>{
                 if(res.data.status === 202){
                     toast.success(res.data.message, {id :toastId});

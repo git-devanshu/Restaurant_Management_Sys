@@ -11,6 +11,7 @@ import addIcon from '../images/add2.png';
 import approveIcon from '../images/approve.png';
 import ImgButton from './ImgButton';
 import Table from '../components/Table';
+import {getBaseUrl} from '../utils/helperFunctions';
 
 export default function AdminWaiters() {
     const [waiterData, setWaiterData] = useState([]);
@@ -61,7 +62,7 @@ export default function AdminWaiters() {
 
     const fetchWaiterData = () =>{
         const token = sessionStorage.getItem('token');
-        axios.get('http://localhost:8000/admin/waiters', {headers : {
+        axios.get(getBaseUrl()+'/admin/waiters', {headers : {
             'Authorization': `Bearer ${token}`
         }})
         .then(res =>{
@@ -80,7 +81,7 @@ export default function AdminWaiters() {
 
     const fetchTableData = () =>{
         const token = sessionStorage.getItem('token');
-        axios.get('http://localhost:8000/admin/tables', {headers : {
+        axios.get(getBaseUrl()+'/admin/tables', {headers : {
             'Authorization': `Bearer ${token}`
         }})
         .then(res =>{
@@ -100,7 +101,7 @@ export default function AdminWaiters() {
     const removeWaiter = (index) =>{
         const token = sessionStorage.getItem('token');
         const id = waiterData[index]._id;
-        axios.delete(`http://localhost:8000/admin/waiters/${id}`, {headers : {
+        axios.delete(`${getBaseUrl()}/admin/waiters/${id}`, {headers : {
             'Authorization': `Bearer ${token}`
         }})
         .then(res =>{
@@ -120,7 +121,7 @@ export default function AdminWaiters() {
 
     const addWaiter = () =>{
         const token = sessionStorage.getItem('token');
-        axios.post('http://localhost:8000/admin/waiters', waiter, {headers : {
+        axios.post(getBaseUrl()+'/admin/waiters', waiter, {headers : {
             'Authorization': `Bearer ${token}`
         }})
         .then(res =>{
@@ -141,7 +142,7 @@ export default function AdminWaiters() {
 
     const freeAllWaiters = () =>{
         const token = sessionStorage.getItem('token');
-        axios.put('http://localhost:8000/admin/waiters/free-all', {}, {headers : {
+        axios.put(getBaseUrl()+'/admin/waiters/free-all', {}, {headers : {
             'Authorization': `Bearer ${token}`
         }})
         .then(res =>{
@@ -166,7 +167,7 @@ export default function AdminWaiters() {
             toast.error('Please select a table');
             return;
         }
-        axios.put('http://localhost:8000/admin/waiters/assign', {id : id, tableNo : currTable.tableNo}, {headers : {
+        axios.put(getBaseUrl()+'/admin/waiters/assign', {id : id, tableNo : currTable.tableNo}, {headers : {
             'Authorization': `Bearer ${token}`
         }})
         .then(res =>{

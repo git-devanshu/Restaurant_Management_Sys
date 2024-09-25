@@ -12,6 +12,7 @@ import searchIcon from '../images/search.png';
 import { Button, Stack, CloseButton, Spacer, Input } from '@chakra-ui/react';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
+import {getBaseUrl} from '../utils/helperFunctions';
 
 export default function AdminCustomer(){
     const [refresh, setRefresh] = useState(false);
@@ -29,7 +30,7 @@ export default function AdminCustomer(){
 
     useEffect(()=>{
         const token = sessionStorage.getItem('token');
-        axios.get('http://localhost:8000/admin/customers', {headers : {
+        axios.get(getBaseUrl()+'/admin/customers', {headers : {
             Authorization : `Bearer ${token}`
         }})
         .then(res => {
@@ -91,7 +92,7 @@ export default function AdminCustomer(){
     const removeCustomer = (index) =>{
         const token = sessionStorage.getItem('token');
         const id = data[index]._id;
-        axios.delete(`http://localhost:8000/admin/customers/${id}`, {headers : {
+        axios.delete(`${getBaseUrl()}/admin/customers/${id}`, {headers : {
             'Authorization' : `Bearer ${token}`
         }})
         .then(res => {
@@ -112,7 +113,7 @@ export default function AdminCustomer(){
     const updateCustomer = (e) =>{
         e.preventDefault();
         const token = sessionStorage.getItem('token');
-        axios.put('http://localhost:8000/admin/customers', user, {headers : {
+        axios.put(getBaseUrl()+'/admin/customers', user, {headers : {
             'Authorization' : `Bearer ${token}`
         }})
         .then(res => {

@@ -2,13 +2,13 @@ import React, { useEffect } from 'react';
 import '../styles/TableReservation.css';
 import { useState } from 'react';
 import axios from 'axios';
-import {decodeToken} from '../utils/helperFunctions';
 import {Toaster, toast} from 'react-hot-toast';
 import Table from '../components/Table';
 import foodiesIcon from '../images/restaurant.png';
-import { Button, Stack, CloseButton, Spacer, Input } from '@chakra-ui/react';
+import { Button, Spacer } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import tableIcon from '../images/table-4.png';
+import {getBaseUrl} from '../utils/helperFunctions';
 
 export default function TableReservation(){
     const navigate = useNavigate();
@@ -27,7 +27,7 @@ export default function TableReservation(){
 
     useEffect(()=>{
         const token = sessionStorage.getItem('token');
-        axios.get('http://localhost:8000/customer/reservations', {headers : {
+        axios.get(getBaseUrl()+'/customer/reservations', {headers : {
             'Authorization': `Bearer ${token}`
         }})
         .then(res =>{
@@ -49,9 +49,6 @@ export default function TableReservation(){
         if(selectedTable !== -1){
             setDisableBtn(false);
         }
-        // if(selectedTable !== -1 && data[selectedTable].status === 'occupied'){
-        //     setDisableBtn(true);
-        // }
     }, [selectedTable]);
 
     const bookTable = ()=> {
@@ -59,7 +56,7 @@ export default function TableReservation(){
         const token = sessionStorage.getItem('token');
         const tableId = data[selectedTable]._id;
         const toastId = toast.loading('Sending reservation request...');
-        axios.put('http://localhost:8000/customer/reservations', {id : tableId}, {headers : {
+        axios.put(getBaseUrl()+'/customer/reservations', {id : tableId}, {headers : {
             'Authorization': `Bearer ${token}`
         }})
         .then(res => {
@@ -67,7 +64,7 @@ export default function TableReservation(){
                 toast.loading('Wait until your request is approved...', {id: toastId});
                 //keep on polling to check if the request is approved
                 const interval = setInterval(async ()=>{
-                    axios.get('http://localhost:8000/customer/my-orders', {headers : {
+                    axios.get(getBaseUrl()+'/customer/my-orders', {headers : {
                         Authorization : `Bearer ${token}`,
                     }})
                     .then(res =>{

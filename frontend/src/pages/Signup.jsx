@@ -1,12 +1,13 @@
 import React, {useState} from 'react'
 import '../styles/login.css';
-import { Input, Stack, InputGroup, InputLeftElement, Center, Heading, Link, Button, ButtonGroup, Text, Image } from '@chakra-ui/react'
+import { Input, Stack, InputGroup, InputLeftElement, Heading, Link, Button, Text, Image } from '@chakra-ui/react'
 import { AtSignIcon, EmailIcon, LockIcon, InfoIcon } from '@chakra-ui/icons';
 import foodiesIcon from '../images/restaurant.png';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import {Toaster, toast} from 'react-hot-toast';
 import {checkEmailValidity} from '../utils/helperFunctions';
+import {getBaseUrl} from '../utils/helperFunctions';
 
 export default function Signup() {
     const navigate = useNavigate();
@@ -46,7 +47,7 @@ export default function Signup() {
         }
         else{
             const toastId = toast.loading("Saving user...");
-            await axios.post('http://localhost:8000/user/signup', user)
+            await axios.post(getBaseUrl()+'/user/signup', user)
             .then(res => {
                 if(res.data.status === 201){
                     toast.success(res.data.message, {id : toastId});

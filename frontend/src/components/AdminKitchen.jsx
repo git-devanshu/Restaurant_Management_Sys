@@ -10,6 +10,7 @@ import deleteIcon from '../images/delete.png';
 import addIcon from '../images/add2.png';
 import tableIcon from '../images/table-4.png';
 import ImgButton from './ImgButton';
+import {getBaseUrl} from '../utils/helperFunctions';
 
 export default function AdminKitchen() {
     const [chefData, setChefData] = useState([]);
@@ -57,7 +58,7 @@ export default function AdminKitchen() {
 
     const fetchChefData = () =>{
         const token = sessionStorage.getItem('token');
-        axios.get('http://localhost:8000/admin/kitchen/chefs', {headers : {
+        axios.get(getBaseUrl()+'/admin/kitchen/chefs', {headers : {
             'Authorization': `Bearer ${token}`
         }})
         .then(res =>{
@@ -76,7 +77,7 @@ export default function AdminKitchen() {
 
     const fetchKDSData = () =>{
         const token = sessionStorage.getItem('token');
-        axios.get('http://localhost:8000/admin/kitchen/kds-data', {headers : {
+        axios.get(getBaseUrl()+'/admin/kitchen/kds-data', {headers : {
             'Authorization': `Bearer ${token}`
         }})
         .then(res =>{
@@ -96,7 +97,7 @@ export default function AdminKitchen() {
     const removeChef = (index) =>{
         const token = sessionStorage.getItem('token');
         const id = chefData[index]._id;
-        axios.delete(`http://localhost:8000/admin/kitchen/${id}`, {headers : {
+        axios.delete(`${getBaseUrl()}/admin/kitchen/${id}`, {headers : {
             'Authorization': `Bearer ${token}`
         }})
         .then(res =>{
@@ -116,7 +117,7 @@ export default function AdminKitchen() {
 
     const addChef = () =>{
         const token = sessionStorage.getItem('token');
-        axios.post('http://localhost:8000/admin/kitchen', chef, {headers : {
+        axios.post(getBaseUrl()+'/admin/kitchen', chef, {headers : {
             'Authorization': `Bearer ${token}`
         }})
         .then(res =>{

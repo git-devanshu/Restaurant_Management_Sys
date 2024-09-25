@@ -9,6 +9,7 @@ import {RepeatIcon} from '@chakra-ui/icons';
 import approveIcon from '../images/approve.png';
 import dismissIcon from '../images/dismiss.png';
 import freeIcon from '../images/time.png';
+import {getBaseUrl} from '../utils/helperFunctions';
 
 export default function AdminReservations(){
     const [refresh, setRefresh] = useState(false);
@@ -18,7 +19,7 @@ export default function AdminReservations(){
 
     useEffect(()=>{
         const token = sessionStorage.getItem('token');
-        axios.get('http://localhost:8000/admin/tables', {headers : {
+        axios.get(getBaseUrl()+'/admin/tables', {headers : {
             'Authorization': `Bearer ${token}`
         }})
         .then(res =>{
@@ -47,7 +48,7 @@ export default function AdminReservations(){
 
     const approveRequest = (index) =>{
         const token = sessionStorage.getItem('token');
-        axios.put('http://localhost:8000/admin/reservation/approve-request', 
+        axios.put(getBaseUrl()+'/admin/reservation/approve-request', 
         {
             id : currTable._id, 
             tableNo : currTable.tableNo,
@@ -77,7 +78,7 @@ export default function AdminReservations(){
 
     const rejectRequest = (index) =>{
         const token = sessionStorage.getItem('token');
-        axios.put('http://localhost:8000/admin/reservation/reject-request',
+        axios.put(getBaseUrl()+'/admin/reservation/reject-request',
         {
             id : currTable._id, 
             custId : currTable.waitlist[index].custId,
@@ -106,7 +107,7 @@ export default function AdminReservations(){
 
     const vacateTable = () =>{
         const token = sessionStorage.getItem('token');
-        axios.put('http://localhost:8000/admin/reservation/free-table', {id : currTable._id}, {headers : {
+        axios.put(getBaseUrl()+'/admin/reservation/free-table', {id : currTable._id}, {headers : {
             'Authorization': `Bearer ${token}`
         }})
         .then(res =>{

@@ -141,3 +141,8 @@ export const getCategoryName = (index) =>{
             return 'other';
     }
 }
+
+// function to provide the base URL for API calls
+export function getBaseUrl(){
+    return 'http://localhost:8000';
+}

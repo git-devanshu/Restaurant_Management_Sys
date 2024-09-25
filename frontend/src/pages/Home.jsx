@@ -34,6 +34,7 @@ import emailIcon from '../images/email.png';
 import contactIcon from '../images/phone.png';
 import {getCurrentDate, logout} from '../utils/helperFunctions';
 import { Toaster, toast } from 'react-hot-toast';
+import {getBaseUrl} from '../utils/helperFunctions';
 
 export default function Home() {
     const navigate = useNavigate();
@@ -66,7 +67,7 @@ export default function Home() {
 
     const submitFeedback = () =>{
         const token = sessionStorage.getItem('token');
-        axios.post('http://localhost:8000/customer/feedback', {review}, {headers : {
+        axios.post(getBaseUrl()+'/customer/feedback', {review}, {headers : {
             'Authorization' : `Bearer ${token}`
         }})
         .then(res =>{

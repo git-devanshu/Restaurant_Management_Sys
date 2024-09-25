@@ -1,20 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import '../styles/AdminOptions.css';
-import { Button, Stack, CloseButton, Spacer, Input, Text, Avatar, Badge, Divider } from '@chakra-ui/react';
-import {RepeatIcon} from '@chakra-ui/icons';
+import { Button, Spacer, Text, Avatar } from '@chakra-ui/react';
 import axios from 'axios';
 import {Toaster, toast} from 'react-hot-toast';
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
 import refreshIcon from '../images/refresh.png';
-import deleteIcon from '../images/delete.png';
-import addIcon from '../images/add2.png';
 import tableIcon from '../images/table-4.png';
 import foodiesIcon from '../images/restaurant.png';
 import ImgButton from '../components/ImgButton';
 import approveIcon from '../images/approve.png';
 import {logout, decodeToken} from '../utils/helperFunctions';
 import { useNavigate } from 'react-router-dom';
+import {getBaseUrl} from '../utils/helperFunctions';
 
 export default function KDSPage(){
     const navigate = useNavigate();
@@ -46,7 +42,7 @@ export default function KDSPage(){
 
     const fetchKDSData = () =>{
         const token = sessionStorage.getItem('token');
-        axios.get('http://localhost:8000/chef/kitchen', {headers : {
+        axios.get(getBaseUrl()+'/chef/kitchen', {headers : {
             'Authorization': `Bearer ${token}`
         }})
         .then(res =>{
@@ -65,7 +61,7 @@ export default function KDSPage(){
 
     const completeOrderCooking = (ind, kdsId, kotId, kotInd) =>{
         const token = sessionStorage.getItem('token');
-        axios.put('http://localhost:8000/chef/kitchen', {
+        axios.put(getBaseUrl()+'/chef/kitchen', {
             id : kdsId,
             kotId : kotId,
             index : ind,
@@ -92,7 +88,6 @@ export default function KDSPage(){
         <div>
             <div className='kds-head'>
                 <img src={foodiesIcon} style={{height:'30px', width:'30px', marginLeft:'10px', filter:'invert(16%) sepia(98%) saturate(6628%) hue-rotate(4deg) brightness(96%) contrast(124%)'}}/>
-                {/* <h3>FOODIES</h3> */}
                 <Text fontSize='20px' as='b' ml='10px' color='white'>Kitchen Display System (KDS)</Text>
                 <Spacer/>
                 <ImgButton action={refreshData} photo={refreshIcon} title='Refresh' color={'dark'} bgC={'white'} txtC={'#00171F'}/>
