@@ -181,7 +181,7 @@ export default function AdminCustomer(){
                             <Stack direction={'row'}>
                                 <h2 style={{margin:'0'}}>Update Customer</h2>
                                 <Spacer/>
-                                <CloseButton color="white" onClick={()=>setModal(false)}/>
+                                <CloseButton bg='red' color='white' onClick={()=>setModal(false)}/>
                             </Stack>
                             <Input variant={'filled'} type="text" name='name' value={user.name} onChange={handleChange} placeholder="name" required/>
                             <Input variant={'filled'} type="text" name='username' value={user.username} onChange={handleChange} placeholder="username" required/>

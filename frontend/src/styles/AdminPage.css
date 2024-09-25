@@ -2,7 +2,6 @@
     margin: 0;
     padding: 0;
     height: 100vh;
-    /* background-color: rgb(213, 213, 213); */
 }
 
 .top-bar-admin{
@@ -42,6 +41,8 @@
 
 .sidebar-ad{
     display: flex;
+    height: 100vh;
+    overflow-y: hidden;
 }
 
 .sidebar-menu{

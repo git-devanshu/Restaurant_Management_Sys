@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import '../styles/AdminOptions.css';
-import { Button, Stack, CloseButton, Spacer, Input, Text, Avatar, Badge, Divider } from '@chakra-ui/react';
-import {RepeatIcon} from '@chakra-ui/icons';
+import { Button, Stack, CloseButton, Spacer, Input, Text, Divider } from '@chakra-ui/react';
 import axios from 'axios';
 import {Toaster, toast} from 'react-hot-toast';
 import { DataTable } from 'primereact/datatable';
@@ -198,7 +197,7 @@ export default function AdminKitchen() {
                             <Stack direction={'row'}>
                                 <h2 style={{margin:'0'}}>Add Chef</h2>
                                 <Spacer/>
-                                <CloseButton onClick={()=>setModal(false)}/>
+                                <CloseButton bg='red' color='white' onClick={()=>setModal(false)}/>
                             </Stack>
                             <Input variant={'filled'} type="text" name="name" value={chef.name} onChange={handleChange} placeholder="Chef Name" required/>
                             <Input variant={'filled'} type="text" name="username" value={chef.username} onChange={handleChange} minLength={3} maxLength={20} placeholder="Username" required/>

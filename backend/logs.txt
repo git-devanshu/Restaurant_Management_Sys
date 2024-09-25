@@ -14,3 +14,13 @@
    test_user1 user 66f30428ae4e9594b2c85294
 -> login ...Wed Sep 25 2024 00:05:00 GMT+0530 (India Standard Time)
    chef_acc1 chef 66f196e791403f6d4ec99bc6
+-> login ...Wed Sep 25 2024 12:08:34 GMT+0530 (India Standard Time)
+   dev_acc1 user 66f19c3f3f3b2a79920c2849
+-> login ...Wed Sep 25 2024 12:08:46 GMT+0530 (India Standard Time)
+   admin_acc1 admin 66f19b263321b73d5fded78b
+-> login ...Wed Sep 25 2024 12:08:57 GMT+0530 (India Standard Time)
+   chef_acc1 chef 66f196e791403f6d4ec99bc6
+-> login ...Wed Sep 25 2024 14:27:54 GMT+0530 (India Standard Time)
+   admin_acc1 admin 66f19b263321b73d5fded78b
+-> login ...Wed Sep 25 2024 14:28:04 GMT+0530 (India Standard Time)
+   dev_acc1 user 66f19c3f3f3b2a79920c2849

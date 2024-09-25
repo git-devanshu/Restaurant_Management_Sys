@@ -188,7 +188,7 @@ export default function OrderFood(){
                                     {item.type === 'veg' && <img src={vegFoodIcon} />}
                                     {item.type === 'non veg' && <img src={nonVegIcon} />}
                                     <h4>{item.itemName}</h4>
-                                    <p>{item.price}</p>
+                                    <p>&#x20B9; {item.price}</p>
                                 </div>
                             );
                         })}
@@ -202,7 +202,7 @@ export default function OrderFood(){
                                 <div className="orders-list-of">
                                     <h2>{item.itemName}</h2>
                                     <div style={{display:'flex'}}>
-                                        <p style={{flex:'2', textAlign:'left', marginLeft:'10px', color:'red'}}>Rs. {item.price}</p>
+                                        <p style={{flex:'2', textAlign:'left', marginLeft:'10px', color:'red'}}>&#x20B9; {item.price}</p>
                                         <p style={{flex:'1', textAlign:'right', marginRight:'10px', fontWeight:'600'}}>{item.qty}</p>
                                     </div>
                                 </div>
@@ -210,7 +210,7 @@ export default function OrderFood(){
                         })}
                     </div>
                     <div className='decision-div-of'>
-                        <p>Total : Rs. {total}</p>
+                        <p>Total : &#x20B9; {total}</p>
                         <div style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
                             <button onClick={placeOrder}>Place Order</button>
                             <button onClick={clearList}>Clear list</button>

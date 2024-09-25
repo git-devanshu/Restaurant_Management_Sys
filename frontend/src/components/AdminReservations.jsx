@@ -2,16 +2,13 @@ import React, { useEffect, useState } from "react";
 import '../styles/AdminOptions.css';
 import axios from 'axios';
 import {Toaster, toast} from 'react-hot-toast';
-import ImgButton from './ImgButton';
 import Table from '../components/Table';
-import { Button, Stack, CloseButton, Spacer, Input, Text, Avatar, Badge, Divider } from '@chakra-ui/react';
+import { Button, Stack, Spacer, Text, Avatar } from '@chakra-ui/react';
 import {RepeatIcon} from '@chakra-ui/icons';
 /* importing icons */
-import refreshIcon from '../images/refresh.png';
 import approveIcon from '../images/approve.png';
 import dismissIcon from '../images/dismiss.png';
 import freeIcon from '../images/time.png';
-import addIcon from '../images/add2.png';
 
 export default function AdminReservations(){
     const [refresh, setRefresh] = useState(false);

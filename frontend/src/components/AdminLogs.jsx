@@ -35,10 +35,10 @@ export default function AdminLogs(){
     return(
         <div className='parent-ad'>
             <div style={{display:'flex', alignItems:'center'}}>
-                <h1 style={{margin:'0 0 2px 0'}}>DASHBOARD</h1>
+                <h1 style={{margin:'0 0 2px 0'}}>LOGIN HISTORY</h1>
                 <RepeatIcon h={6} w={6} m='5px' onClick={refreshData} _hover={{color:'gray', cursor:'pointer'}}/>
             </div>
-            <pre style={{width:'90%', fontSize: '18px', overflow:'scroll', scrollbarWidth:'none', backgroundColor:'#00171F', color:'white', borderRadius:'10px', padding:'10px'}}>{logs}</pre>
+            <pre style={{width:'90%', height:'90vh', fontSize: '18px', overflow:'scroll', scrollbarWidth:'none', backgroundColor:'#00171F', color:'white', borderRadius:'10px', padding:'10px'}}>{logs}</pre>
             <Toaster/>
         </div>
     );

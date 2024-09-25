@@ -104,7 +104,7 @@ const getOrderHistory = async (req, res) =>{
     try{
         const privilege = req.privilege;
         if(privilege === 'admin'){
-            const data = await KOT.find({billStatus : 'paid'});
+            const data = await KOT.find({billStatus : 'paid'}).sort({ _id: -1 });
             res.json({ status : 200, data });
         }
         else{

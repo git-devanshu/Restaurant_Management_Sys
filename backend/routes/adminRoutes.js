@@ -1,10 +1,7 @@
 const express = require('express');
 const adminRouter = express.Router();
 
-// import middlewares
 const {checkAuthorization} = require('../middlewares/checkAuthorization');
-
-// import controllers
 const {getCustomer, updateCustomer, removeCustomer} = require('../controllers/admin-controllers/customers');
 const {getFeedback, removeFeedback} = require('../controllers/admin-controllers/feedback');
 const {getMenuItems, UpdateMenuItem, addMenuItem, removeMenuItem} = require('../controllers/admin-controllers/menu');

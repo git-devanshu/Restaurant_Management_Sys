@@ -4,7 +4,7 @@ const getCustomer = async (req, res) =>{
     try{
         const privilege = req.privilege;
         if(privilege === 'admin'){
-            const data = await User.find({});
+            const data = await User.find({}).sort({ _id: -1 });
             res.json({status : 200, data});
         }
         else{

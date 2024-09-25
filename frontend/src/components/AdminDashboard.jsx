@@ -1,29 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import '../styles/AdminOptions.css';
-import { useNavigate } from 'react-router-dom';
-import foodiesIcon from '../images/restaurant.png';
-import {Text, Button, Box, Spacer, Stack, Heading} from '@chakra-ui/react';
+import {Text, Spacer, Stack, Heading} from '@chakra-ui/react';
 import {Chart} from 'primereact/chart';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import {RepeatIcon, ArrowForwardIcon} from '@chakra-ui/icons';
 import {Toaster, toast} from 'react-hot-toast';
 // importing icons
-import ResIcon from '../images/restaurant.png';
-import detailsIcon from '../images/dashboard.png';
 import customerIcon from '../images/user2.png';
 import kitchenIcon from '../images/kitchen2.png';
 import chefIcon from '../images/chef1.png';
 import waiterIcon from '../images/waiter.png';
 import orderIcon from '../images/orders2.png';
-import reservationIcon from '../images/reservation1.png';
 import revenueIcon from '../images/revenue.png';
 import menuIcon from '../images/menu1.png';
-import feedbackIcon from '../images/reviews.png';
-import tableIcon from '../images/table2.png';
-import logsIcon from '../images/logs.png';
-import helpIcon from '../images/help.png';
 
 export default function AdminDashboard(){
     const [data, setData] = useState({

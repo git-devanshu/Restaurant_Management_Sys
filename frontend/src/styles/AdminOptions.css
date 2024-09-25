@@ -212,12 +212,6 @@ h2{
     z-index: 3;
 }
 
-/*================= dashboard =================*/
-
-/* h6{
-    color: #90cddf;
-} */
-
 /*================= kitchen =================*/
 
 .chef-div-ad{
@@ -288,7 +282,6 @@ h2{
 .order-item-ad{
     height: 90px;
     width: 220px;
-    /* border: 1px solid black; */
     border-radius: 10px;
     margin: 10px;
     cursor: pointer;
@@ -372,7 +365,6 @@ h2{
 .order-details-head-ad{
     display: flex;
     align-items: center;
-    /* background-color: #43BEE5; */
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
     padding: 10px;
@@ -391,7 +383,6 @@ h2{
 .order-details-items-ad{
     height: 270px;
     overflow: scroll;
-    /* background-color: #43BEE5; */
     margin: 0 15px 0 15px;
     scrollbar-width: none;
 }
@@ -447,7 +438,6 @@ h2{
         color: #00171F;
         font-size: 80px;
         font-weight: 700;
-        /* margin: 20px 20px 20px 10px; */
         margin: 0;
         text-align: left;
         margin-left: 15px;

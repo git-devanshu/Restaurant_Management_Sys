@@ -1,8 +1,5 @@
 import axios from 'axios';
 import {toast} from 'react-hot-toast';
-import jsPDF from 'jspdf';
-import html2canvas from 'html2canvas';
-import FoodiesIcon from '../images/restaurant.png';
 
 //checks if the email is in valid format
 export function checkEmailValidity(email){
@@ -61,6 +58,7 @@ export function getCurrentDate(type){
     var d_name = date.toLocaleString('default', {weekday : 'long'});
     var h = date.getHours();
     var min = date.getMinutes();
+
     if(type === 1){
         return dd + '-' + (mm+1) + '-' + yy;
     }
@@ -74,7 +72,7 @@ export function getCurrentDate(type){
         return yy;
     }
     else if(type === 5){
-        return h + ':' + min + " " + dd + '-' + (mm+1) + '-' + yy;
+        return h.toString(10).padStart(2, '0') + ':' + min.toString(10).padStart(2, '0');
     }
     else{
         return yy + '-' + (mm+1) + '-' + dd;
@@ -102,7 +100,7 @@ export function logout(navigate){
             }
         })
         .catch(err => {
-            console.log("Error logging out", err);
+            console.log(err);
             toast.error("Error logging out", {id : toastId});
         })
     }
@@ -117,111 +115,29 @@ export const getCategoryName = (index) =>{
     switch(index){
         case 0:
             return 'food menu';
-            break;
         case 1:
             return 'starter';
-            break;
         case 2:
             return 'mains';
-            break;
         case 3:
             return 'curry';
-            break;
         case 4:
             return 'south indian';
-            break;
         case 5:
             return 'italian';
-            break;
         case 6:
             return 'chinese';
-            break;
         case 7:
             return 'dessert';
-            break;
         case 8:
             return 'beverage';
-            break;
         case 9:
             return 'soup';
-            break;
         case 10:
             return 'specials';
-            break;
         case 11:
             return 'breakfast';
-            break;
         case 12:
             return 'other';
-            break;
     }
-}
-
-export const downloadBill = (order) => {
-    const {_id, tableNo, items, totalPrice, orderTime, orderStatus, billStatus} = order;
-    
-    const billHtml = `
-        <div id="bill" style="font-family: Arial, sans-serif; padding: 10px; width: 90%; margin: auto;">
-            <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid #000; padding-bottom: 10px;">
-                <h1 style="margin: 0; color: #43BEE5">FOODIES</h1>
-            </div>
-            <div style="margin-top: 20px; font-size: 14px;">
-                <p><strong>${_id}</strong></p>
-                <div style="display: flex; align-items: center; justify-content: space-between;">
-                    <p style="margin:0"><strong>Table No:</strong></p>
-                    <p style="margin:0">${tableNo}</p>
-                </div>
-                <div style="display: flex; align-items: center; justify-content: space-between;">
-                    <p style="margin:0"><strong>Order Time:</strong></p>
-                    <p style="margin:0">${orderTime}</p>
-                </div>
-                <div style="display: flex; align-items: center; justify-content: space-between;">
-                    <p style="margin:0"><strong>Bill Status:</strong></p>
-                    <p style="margin:0">${billStatus}</p>
-                </div>
-            </div>
-            <table border="0" cellspacing="0" cellpadding="3" style="width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 14px;">
-                <thead style="background-color: gray; color: white">
-                <tr>
-                    <th style="text-align: left;">Item</th>
-                    <th style="text-align: right;">Quantity</th>
-                    <th style="text-align: right;">Price</th>
-                    <th style="text-align: right;">Sub Total</th>
-                </tr>
-                </thead>
-                <tbody>
-                ${items.map(item => `
-                    <tr style="border-bottom: 1px solid black">
-                        <td style="text-align: left;">${item.name}</td>
-                        <td style="text-align: right;">${item.qty}</td>
-                        <td style="text-align: right;">${item.price.toFixed(2)}</td>
-                        <td style="text-align: right;">${(item.price * item.qty).toFixed(2)}</td>
-                    </tr>
-                `).join('')}
-                </tbody>
-                <tfoot>
-                <tr>
-                    <td colspan="3" style="text-align: left; font-weight: bold;">Total Price:</td>
-                    <td style="text-align: right; font-weight: bold;">${totalPrice.toFixed(2)}</td>
-                </tr>
-                </tfoot>
-            </table>
-        </div>
-    `;
-
-    const billWindow = window.open('', '', 'height=600,width=450');
-    billWindow.document.write('<html><head><title>Bill</title></head><body>');
-    billWindow.document.write(billHtml);
-    billWindow.document.write('</body></html>');
-    billWindow.document.close();
-
-    billWindow.onload = () => {
-        html2canvas(billWindow.document.body).then((canvas) => {
-            const imgData = canvas.toDataURL('image/png');
-            const pdf = new jsPDF('p', 'mm', 'a4');
-            pdf.addImage(imgData, 'PNG', 10, 10);
-            // pdf.save('bill.pdf');
-            billWindow.close();
-        });
-    };
 }

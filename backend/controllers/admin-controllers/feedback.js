@@ -4,7 +4,7 @@ const getFeedback = async (req, res) =>{
     try{
         const privilege = req.privilege;
         if(privilege === 'admin'){
-            const data = await Feedback.find({});
+            const data = await Feedback.find({}).sort({ _id: -1 });
             res.json({status : 200, data});
         }
         else{

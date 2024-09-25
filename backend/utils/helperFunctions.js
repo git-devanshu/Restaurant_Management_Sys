@@ -20,7 +20,7 @@ type values :
 5 - hh:mm
 else - YYYY-MM-DD
 */
-const getCurrentDate = (type) =>{
+function getCurrentDate(type){
     const date = new Date();
     var dd = date.getDate();
     var mm = date.getMonth();
@@ -29,6 +29,7 @@ const getCurrentDate = (type) =>{
     var d_name = date.toLocaleString('default', {weekday : 'long'});
     var h = date.getHours();
     var min = date.getMinutes();
+
     if(type === 1){
         return dd + '-' + (mm+1) + '-' + yy;
     }
@@ -42,7 +43,7 @@ const getCurrentDate = (type) =>{
         return yy;
     }
     else if(type === 5){
-        return h + ':' + min;
+        return h.toString(10).padStart(2, '0') + ':' + min.toString(10).padStart(2, '0');
     }
     else{
         return yy + '-' + (mm+1) + '-' + dd;
@@ -55,8 +56,6 @@ const addToLogs = (username, privilege, id) =>{
     // const logFilePath = path.join(__dirname, 'backend', 'logs.txt');
     fs.appendFileSync('C:/Users/devan/OneDrive/Desktop/Projects/Restaurant  POS/backend/logs.txt', data);
 }
-
-// 'C:/Users/devan/OneDrive/Desktop/Projects/Restaurant  POS/backend/logs.txt'
 
 module.exports = {
     generateVerificationCode, 

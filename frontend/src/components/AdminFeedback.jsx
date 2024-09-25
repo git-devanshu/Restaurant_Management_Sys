@@ -131,7 +131,7 @@ export default function AdminFeedback(){
                             <Stack direction={'row'}>
                                 <h2 style={{margin:'0'}}>Customer Feedback</h2>
                                 <Spacer/>
-                                <CloseButton onClick={()=>setView(false)}/>
+                                <CloseButton bg='red' color='white' onClick={()=>setView(false)}/>
                             </Stack>
                             <Stack direction='row' spacing={3}>
                                 <Input variant='unstyled' type="text" name="name" value={feedback.name}/>

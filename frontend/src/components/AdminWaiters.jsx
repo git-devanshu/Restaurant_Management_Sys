@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import '../styles/AdminOptions.css';
-import { Button, Stack, CloseButton, Spacer, Input, Text, Avatar, Badge, Divider } from '@chakra-ui/react';
+import { Button, Stack, CloseButton, Spacer, Input, Text } from '@chakra-ui/react';
 import axios from 'axios';
 import {Toaster, toast} from 'react-hot-toast';
 import { DataTable } from 'primereact/datatable';
@@ -9,7 +9,6 @@ import refreshIcon from '../images/refresh.png';
 import deleteIcon from '../images/delete.png';
 import addIcon from '../images/add2.png';
 import approveIcon from '../images/approve.png';
-import freeIcon from '../images/time.png';
 import ImgButton from './ImgButton';
 import Table from '../components/Table';
 
@@ -261,54 +260,6 @@ export default function AdminWaiters() {
                     )}
                 </div>
             )}
-            {/* <div className="">
-                {(!chefData || chefData.length === 0) && (
-                    <Text fontSize='18px' ml='10px'>No Chef data available</Text>
-                )}
-                {chefData && chefData.length > 0 && (
-                    <div className="display-table">
-                        <DataTable value={chefData} size={"small"} stripedRows removableSort scrollable scrollHeight="500px">
-                            <Column field="name" header="Name" sortable style={{ width: '20%' }}></Column>
-                            <Column field="email" header="Email" style={{ width: '25%' }}></Column>
-                            <Column field="username" header="Username" sortable style={{ width: '15%' }}></Column>
-                            <Column field="age" header="Age" sortable style={{ width: '10%' }}></Column>
-                            <Column field="speciality" header="Speciality" style={{ width: '20%' }}></Column>
-                            <Column header="Delete" body={(rowData, { rowIndex }) => (
-                                <img src={deleteIcon} onClick={() =>removeChef(rowIndex)} className="td-img-ad-tables" alt="red" />
-                            )} style={{ width: '10%' }}></Column>
-                        </DataTable>
-                    </div>
-                )}
-            </div> */}
-            {/* <div className="">
-                <h4>Kitchen Orders</h4>
-                <div className='kds-display-ad'>
-                    {(!KDSData || KDSData.length === 0) && (
-                        <Text fontSize='18px' ml='5px'>No Oders being cooked in Kitchen now</Text>
-                    )}
-                    {KDSData && KDSData.length > 0 && KDSData.map((kds, index)=>{
-                        return(
-                            <div className='kds-card-ad'>
-                                <div style={{display:'flex', alignItems:'center', backgroundColor:'#EFA500', width:'100%'}}>
-                                    <img src={tableIcon} style={{margin:'5px 5px 5px 10px'}} height='30px' width='30px'/>
-                                    <Text fontSize='18px' as='b' ml='5px'>{kds.tableNo}</Text>
-                                </div>
-                                <div style={{height:'fit-content', maxHeight:'259px', padding:'10px', overflow:'scroll', scrollbarWidth:'none'}}>
-                                    {kds.items?.length > 0 && kds.items.map((item, ind)=>{
-                                        return(
-                                            <div>
-                                                <Text fontSize='18px'>{item.itemName}</Text>
-                                                <Text color='rgb(120, 120, 120)'>{item.qty}</Text>
-                                                <Divider/>
-                                            </div>
-                                        )
-                                    })}
-                                </div> 
-                            </div>
-                        )
-                    })}
-                </div>
-            </div> */}
             {modal && (
                 <div className="modal-ad">
                     <form>
@@ -316,7 +267,7 @@ export default function AdminWaiters() {
                             <Stack direction={'row'}>
                                 <h2 style={{margin:'0'}}>Add Waiter</h2>
                                 <Spacer/>
-                                <CloseButton onClick={()=>setModal(false)}/>
+                                <CloseButton bg='red' color='white' onClick={()=>setModal(false)}/>
                             </Stack>
                             <Input variant={'filled'} type="text" name="name" value={waiter.name} onChange={handleChange} placeholder="Waiter Name" required/>
                             <Input variant={'filled'} type="text" name="username" value={waiter.username} onChange={handleChange} minLength={3} maxLength={20} placeholder="Username" required/>

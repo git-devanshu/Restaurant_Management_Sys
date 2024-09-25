@@ -234,7 +234,7 @@ export default function AdminTables(){
                             <Stack direction={'row'}>
                                 <h2 style={{margin:'0'}}>{update ? 'Update Table Info' : 'Add a Table'}</h2>
                                 <Spacer/>
-                                <CloseButton onClick={()=>{setModal(false); setUpdate(false);}}/>
+                                <CloseButton bg='red' color='white' onClick={()=>{setModal(false); setUpdate(false);}}/>
                             </Stack>
                             <Input variant={'filled'} type="text" name="tableNo" value={table.tableNo} onChange={handleChange} placeholder="table no" required/>
                             <Input variant={'filled'} type="number" name="capacity" value={table.capacity} onChange={handleChange} min={2} max={10} placeholder="capacity 2-10" required/>

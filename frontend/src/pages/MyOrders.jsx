@@ -10,32 +10,31 @@ import foodiesIcon from '../images/restaurant.png';
 import { Button, Stack, CloseButton, Spacer, Input, Text, Avatar, Badge, Divider } from '@chakra-ui/react';
 import {RepeatIcon} from '@chakra-ui/icons';
 import addIcon from '../images/add2.png';
+import html2pdf from 'html2pdf.js';
+import BillComponent from '../components/BillComponent';
 
 export default function MyOrders(){
     const navigate = useNavigate();
     const [userInfo, setUserInfo] = useState({});
     const [currOrders, setCurrOrders] = useState({});
     const [refresh, setRefresh] = useState(false);
-    const spaceString = '     ';
-    const [bill, setBill] = useState({
-        billId : '',
-        name : '',
-        billDate : '',
-        tableNo : '',
-        items : [],
-        total : 0,
-    });
+    const [showBill, setShowBill] = useState(false);
 
-    const createBill = () =>{
-        setBill({
-            billId : currOrders._id,
-            name : userInfo.name,
-            tableNo : currOrders.tableNo,
-            total : currOrders.totalPrice,
-            items : currOrders.items,
-            billDate : currOrders.orderDate,
-        });  
-    }
+    const handleDownload = () => {
+        const input = document.getElementById('billContent');
+        const elementWidthPx = input.offsetWidth;
+        const elementHeightPx = input.offsetHeight;
+        const widthMm = elementWidthPx * 0.264583;
+        const heightMm = elementHeightPx * 0.264583;
+        const opt = {
+            margin: 1,
+            filename: 'bill.pdf',
+            image: { type: 'png', quality: 0.98 },
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: 'mm', format: [widthMm, heightMm], orientation: 'portrait' }
+        };
+        html2pdf().from(input).set(opt).save();
+    };
 
     const putUserInformation = () =>{
         const token = sessionStorage.getItem('token');
@@ -128,7 +127,7 @@ export default function MyOrders(){
                                         {item.status === 'preparing' && <Badge variant='subtle' colorScheme='yellow'>Preparing</Badge>}
                                         {item.status === 'ready' && <Badge variant='subtle' colorScheme='green'>Ready</Badge>}
                                     </div>
-                                    <Text fontSize='16px' color='rgb(110, 110, 110)'>Rs. {item.price}{spaceString}<strong>{item.qty}</strong></Text>
+                                    <Text fontSize='16px' color='rgb(110, 110, 110)'>&#x20B9; {item.price} <strong>x{item.qty}</strong></Text>
                                     <Divider/>
                                 </div>
                             );
@@ -173,14 +172,23 @@ export default function MyOrders(){
                         <div style={{display:'flex', alignItems:'center'}}>
                             <Text>Grand Total</Text>
                             <Spacer/>
-                            <Text as='b'>{currOrders.totalPrice}</Text>
+                            <Text as='b'>&#x20B9; {currOrders.totalPrice}</Text>
                         </div>
                     </div>
                     <div style={{display:'flex', justifyContent:'center'}}>
-                        <button onClick={createBill}>Issue Bill</button>
+                        <button onClick={()=>setShowBill(true)}>View Bill</button>
                     </div>
                 </div>
             </div>
+            {showBill && (
+                <div style={{width: 'min(96%, 500px)', height: 'fit-content', position: 'absolute', top: '100px', left: 'calc((100% - min(96%, 500px))/2)', backgroundColor:'white', borderRadius:'10px', boxShadow:'0 2px 4px gray', padding:'10px', border:'1px solid rgb(127, 127, 127)'}}>
+                    <BillComponent bill={currOrders}/>
+                    <div style={{display:'flex', alignItems:'center', justifyContent:'center', gap:'10px'}}>
+                        <Button bg='red' color='white' onClick={()=>setShowBill(false)}>Close</Button>
+                        <Button bg='#2aff00' onClick={handleDownload}>Download</Button>
+                    </div>
+                </div>
+            )}
             <Toaster/>
         </div>
     );

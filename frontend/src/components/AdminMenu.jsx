@@ -21,7 +21,7 @@ import soupIcon from '../images/food/soup-bowl.png';
 import specialsIcon from '../images/food/burger-fries.png';
 import breakfastIcon from '../images/food/sandwich.png';
 import otherIcon from '../images/food/other-food.png';
-import { Button, Stack, CloseButton, Spacer, Input, Select, Text, Badge } from '@chakra-ui/react';
+import { Button, Stack, Input, Select, Text } from '@chakra-ui/react';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 

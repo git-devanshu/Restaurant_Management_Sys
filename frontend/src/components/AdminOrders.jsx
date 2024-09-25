@@ -3,21 +3,16 @@ import '../styles/AdminOptions.css';
 import axios from 'axios';
 import {Toaster, toast} from 'react-hot-toast';
 import ImgButton from './ImgButton';
-import {downloadBill} from '../utils/helperFunctions';
 /* importing icons */
 import refreshIcon from '../images/refresh.png'; 
-import backIcon from '../images/previous.png';
 import orderIcon from '../images/chef-hat.png';
 import cancelOrderIcon from '../images/order.png';
-import sendBillIcon from '../images/salary.png';
-import billIcon from '../images/bill1.png';
-import markPaidIcon from '../images/paid.png';
 import deleteIcon from '../images/delete.png';
-import { Button, Stack, CloseButton, Spacer, Input, Text, Avatar, Badge, Divider } from '@chakra-ui/react';
-import {RepeatIcon, CheckCircleIcon, TimeIcon, DeleteIcon, CheckIcon} from '@chakra-ui/icons';
+import { Button, Stack, CloseButton, Spacer, Text } from '@chakra-ui/react';
+import {CheckCircleIcon, TimeIcon, DeleteIcon, CheckIcon, DownloadIcon} from '@chakra-ui/icons';
 import tableIcon from '../images/table-4.png';
-import approveIcon from '../images/approve.png';
-import dismissIcon from '../images/dismiss.png';
+import BillComponent from "./BillComponent";
+import html2pdf from 'html2pdf.js';
 
 export default function AdminOrders(){
     const [refresh, setRefresh] = useState(false);
@@ -27,6 +22,7 @@ export default function AdminOrders(){
     const [order, setOrder] = useState({});
     const [details, setDetails] = useState(false);
     const [confirmClear, setConfirmClear] = useState(false);
+    const [viewBill, setViewBill] = useState(false);
 
     const getCurrentKOTS = () =>{
         const token = sessionStorage.getItem('token');
@@ -89,6 +85,28 @@ export default function AdminOrders(){
             setOrder(item);
         }
     }
+
+    const handleDownload = () => {
+        setViewBill(true);
+        setTimeout(()=>{
+            const input = document.getElementById('billContent');
+            const elementWidthPx = input.offsetWidth;
+            const elementHeightPx = input.offsetHeight;
+            const widthMm = elementWidthPx * 0.264583;
+            const heightMm = elementHeightPx * 0.264583;
+            const opt = {
+                margin: 1,
+                filename: 'bill.pdf',
+                image: { type: 'png', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'mm', format: [widthMm, heightMm], orientation: 'portrait' }
+            };
+            html2pdf().from(input).set(opt).save();
+        }, 100);
+        setTimeout(()=>{
+            setViewBill(false);
+        }, 300);
+    };
 
     const cancelOrder = (index) =>{
         const token = sessionStorage.getItem('token');
@@ -313,9 +331,10 @@ export default function AdminOrders(){
                         })}
                     </div>
                     <div style={{display:'flex', alignItems:'center', padding:'15px'}}>
-                        <Text fontSize='18px' as='b'>Total Rs.{order.totalPrice}</Text>
+                        <Text fontSize='18px' as='b'>Total &#x20B9;{order.totalPrice}</Text>
                         <Spacer/>
                         {section === 1 && <Button onClick={markPaid} leftIcon={<CheckIcon/>} bg='#43BEE5' color='white'>Mark Paid</Button>}
+                        {section === 2 && <Button bg='#2aff00' color='white' mr='10px' leftIcon={<DownloadIcon/>} onClick={handleDownload}>Download</Button>}
                         {section === 2 && <Button onClick={clearItemFromHistory} leftIcon={<DeleteIcon/>} bg='red' color='white'>Delete Record</Button>}
                     </div>
                 </div>
@@ -326,6 +345,11 @@ export default function AdminOrders(){
                     <Button onClick={()=>setConfirmClear(false)} bg='#2AFF00'>Do Not Delete</Button>
                     <Button onClick={clearCompleteHistory} bg='red' color='white'>Delete Permanantly</Button>
                 </Stack>
+            )}
+            {viewBill && (
+                <div style={{width: 'min(96%, 500px)', height: 'fit-content', position: 'absolute', top: '100px', left: 'calc((100% - min(96%, 500px))/2)', backgroundColor:'white', padding:'10px', border:'5px solid black', zIndex:'5'}}>
+                    <BillComponent bill={order} />
+                </div>
             )}
             <Toaster />
         </div>
