@@ -1,16 +1,11 @@
-const fs = require('fs');
-const path = require('path');
+const {Logs} = require('../../models/logsModel');
 
 const getSystemLogs = async (req, res) =>{
     try{
         const privilege = req.privilege;
         if(privilege === 'admin'){
-            fs.readFile('C:/Users/devan/OneDrive/Desktop/Projects/Restaurant  POS/backend/logs.txt', 'utf8', (err, data)=>{
-                if(err){
-                  return res.json({status : 400, error: 'Failed to read logs'});
-                }
-                res.json({status : 200, data});
-            });
+            const data = await Logs.find({}).sort({_id : -1});
+            res.json({status : 200, data});
         }
         else{
             res.json({ status : 401, message : 'Error fetching logs' });

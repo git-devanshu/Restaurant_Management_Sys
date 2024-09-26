@@ -1,5 +1,4 @@
-const fs = require('fs');
-const path = require('path');
+const {Logs} = require('../models/logsModel');
 
 const generateVerificationCode = (size) =>{
     let code = '';
@@ -50,11 +49,15 @@ function getCurrentDate(type){
     }
 }
 
-const addToLogs = (username, privilege, id) =>{
-    const date = new Date();
-    const data = '-> login ...' + date + '\n' + '   ' + username + ' ' + privilege + ' ' + id + '\n';
-    // const logFilePath = path.join(__dirname, 'backend', 'logs.txt');
-    fs.appendFileSync('C:/Users/devan/OneDrive/Desktop/Projects/Restaurant  POS/backend/logs.txt', data);
+const addToLogs = async (username, privilege, id) =>{
+    const date = getCurrentDate(3) + ' ' + getCurrentDate(5);
+    const newLog = new Logs({
+        id,
+        username,
+        privilege,
+        timeStamp : date
+    });
+    await newLog.save();
 }
 
 module.exports = {

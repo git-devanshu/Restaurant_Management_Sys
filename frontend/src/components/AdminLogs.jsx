@@ -6,7 +6,7 @@ import {RepeatIcon} from '@chakra-ui/icons';
 import {getBaseUrl} from '../utils/helperFunctions';
 
 export default function AdminLogs(){
-    const [logs, setLogs] = useState('');
+    const [logs, setLogs] = useState([]);
     const [refresh, setRefresh] = useState(false);
 
     useEffect(()=>{
@@ -39,7 +39,15 @@ export default function AdminLogs(){
                 <h1 style={{margin:'0 0 2px 0'}}>LOGIN HISTORY</h1>
                 <RepeatIcon h={6} w={6} m='5px' onClick={refreshData} _hover={{color:'gray', cursor:'pointer'}}/>
             </div>
-            <pre style={{width:'90%', height:'90vh', fontSize: '18px', overflow:'scroll', scrollbarWidth:'none', backgroundColor:'#00171F', color:'white', borderRadius:'10px', padding:'10px'}}>{logs}</pre>
+            <div style={{width:'90%', height:'90vh', overflow:'scroll', scrollbarWidth:'none', backgroundColor:'#00171F', borderRadius:'10px', padding:'10px'}}>
+                {logs && logs.length > 0 && logs.map((log, index)=>{
+                    return(
+                        <div key={index} style={{color:'white', fontFamily:'monospace'}}>
+                            <p>{log.timeStamp} : {log.username} {' '} {log.privilege} {' '} {log.id}</p>
+                        </div>
+                    )
+                })}
+            </div>
             <Toaster/>
         </div>
     );
