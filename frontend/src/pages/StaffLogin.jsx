@@ -41,7 +41,7 @@ export default function StaffLogin() {
             toast.error("Password should be 8 to 30 characters long");
         }
         else{
-            const toastId = toast.loading(`Loggin in as ${user.role}...`);
+            const toastId = toast.loading(`Logging in as ${user.role}...`);
             await axios.post(getBaseUrl()+'/staff/login', user)
             .then(res => {
                 if(res.data.status === 202){
