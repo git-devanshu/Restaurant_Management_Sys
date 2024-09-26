@@ -89,8 +89,8 @@ export default function Home() {
         <>
         <div className='parent-lp'>
             {/* Navbar in stack */}
-            <Stack direction='horizontal' spacing={8} className='nav-lp'>
-                <Center w='auto' h='40px' style={{marginLeft:'20px'}}>
+            <div className='nav-lp'>
+                <Center w='auto' h='40px'>
                     <Image 
                         boxSize='40px'
                         objectFit='cover'
@@ -109,7 +109,7 @@ export default function Home() {
                     <Text className='nav-lp-contact' fontSize='lg' color='white' _hover={{textDecoration:'underline'}} style={{cursor:'pointer'}}>Feedback</Text>
                 </Center>
                 <Center w='auto' h='40px'>
-                    <Text onClick={navigateToFAQs} className='nav-lp-contact' fontSize='lg' color='white' _hover={{textDecoration:'underline'}} style={{cursor:'pointer'}}>FAQs</Text>
+                    <Text onClick={navigateToFAQs} fontSize='lg' color='white' _hover={{textDecoration:'underline'}} style={{cursor:'pointer'}}>FAQs</Text>
                 </Center>
                 <Spacer/>
                 <Center w='auto' h='40px'>
@@ -117,7 +117,7 @@ export default function Home() {
                         Logout
                     </Button>
                 </Center>
-            </Stack>
+            </div>
 
             {/* Hero section */}
             <div className='grid-lp'>

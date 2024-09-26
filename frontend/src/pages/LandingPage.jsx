@@ -30,8 +30,8 @@ export default function LandingPage() {
     return (
         <div className='parent-lp'>
             {/* Navbar in stack */}
-            <Stack direction='horizontal' spacing={8} className='nav-lp'>
-                <Center w='auto' h='40px' style={{marginLeft:'20px'}}>
+            <div className='nav-lp'>
+                <Center w='auto' h='40px'>
                     <Image 
                         boxSize='40px'
                         objectFit='cover'
@@ -55,7 +55,7 @@ export default function LandingPage() {
                         Signup
                     </Button>
                 </Center>
-            </Stack>
+            </div>
 
             {/* Hero section */}
             <div className='grid-lp'>

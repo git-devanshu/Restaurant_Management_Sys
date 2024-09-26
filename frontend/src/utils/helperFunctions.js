@@ -84,7 +84,7 @@ export function logout(navigate){
     const token = sessionStorage.getItem('token');
     if(token){
         const toastId = toast.loading('Logging out...');
-        axios.post('http://localhost:8000/user/logout',{}, { headers: {
+        axios.post(getBaseUrl()+'/user/logout',{}, { headers: {
             Authorization : `Bearer ${token}`,
         }})
         .then(res => {

@@ -13,7 +13,10 @@ whereas classnames containg lp are for landing page as well as home page
 }
 
 .nav-lp{
-    padding: 20px;
+    padding: 20px 20px 20px 40px;
+    display: flex;
+    align-items: center;
+    gap: 25px;
 }
 
 .grid-lp{
@@ -410,6 +413,8 @@ whereas classnames containg lp are for landing page as well as home page
     }
     .nav-lp{
         padding: 10px 0 10px 0;
+        gap: 10px;
+
     }
     .nav-lp-contact{
         display: none;
