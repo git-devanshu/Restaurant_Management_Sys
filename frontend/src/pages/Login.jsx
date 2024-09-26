@@ -39,7 +39,7 @@ export default function Login() {
             toast.error("Password should be 8 to 30 characters long");
         }
         else{
-            const toastId = toast.loading('Loggin in...');
+            const toastId = toast.loading('Logging in...');
             await axios.post(getBaseUrl()+'/user/login', user)
             .then(res => {
                 if(res.data.status === 202){
